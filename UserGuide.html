@@ -32,22 +32,26 @@
 <li><a href="#listing-all-persons-code-list-code">2.3. Listing all persons : <code>list</code></a></li>
 <li><a href="#editing-a-person-code-edit-code">2.4. Editing a person : <code>edit</code></a></li>
 <li><a href="#locating-persons-by-name-code-find-code">2.5. Locating persons by name: <code>find</code></a></li>
-<li><a href="#locating-persons-by-names-or-phone-numbers-or-tags-code-finds-code-new">2.6. Locating persons by names or phone numbers or tags: <code>finds</code> (NEW)</a></li>
-<li><a href="#deleting-a-person-code-delete-code">2.7. Deleting a person : <code>delete</code></a></li>
-<li><a href="#selecting-a-person-code-select-code">2.8. Selecting a person : <code>select</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">2.9. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">2.10. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">2.11. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">2.12. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">2.13. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">2.14. Saving the data</a></li>
-<li><a href="#extra-code-options-code-menu">2.15. Extra <code>options</code> menu</a></li>
-<li><a href="#delete-function-from-code-options-code">2.16. Delete function from <code>options</code></a></li>
-<li><a href="#coming-soon-in-v2-0">2.17. Coming soon in v2.0</a></li>
+<li><a href="#deleting-a-person-code-delete-code">2.6. Deleting a person : <code>delete</code></a></li>
+<li><a href="#selecting-a-person-code-select-code">2.7. Selecting a person : <code>select</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">2.8. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">2.9. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">2.10. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">2.11. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">2.12. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">2.13. Saving the data</a></li>
 </ul>
 </li>
-<li><a href="#faq">3. FAQ</a></li>
-<li><a href="#command-summary">4. Command Summary</a></li>
+<li><a href="#new-features">3. New Features</a>
+<ul class="sectlevel2">
+<li><a href="#since-v1-0">3.1. Since v1.0</a></li>
+<li><a href="#since-v1-1">3.2. Since v1.1</a></li>
+<li><a href="#since-v1-2">3.3. Since v1.2</a></li>
+<li><a href="#coming-soon-in-v2-0">3.4. Coming soon in v2.0</a></li>
+</ul>
+</li>
+<li><a href="#faq">4. FAQ</a></li>
+<li><a href="#command-summary">5. Command Summary</a></li>
 </ul>
 </div>
 </div>
@@ -278,7 +282,231 @@ Returns any person having names <code>Betsy</code>, <code>Tim</code>, or <code>J
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-persons-by-names-or-phone-numbers-or-tags-code-finds-code-new"><a class="link" href="#locating-persons-by-names-or-phone-numbers-or-tags-code-finds-code-new">2.6. Locating persons by names or phone numbers or tags: <code>finds</code> (NEW)</a></h3>
+<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">2.6. Deleting a person : <code>delete</code></a></h3>
+<div class="paragraph">
+<p>Deletes the specified person from the address book.<br>
+Format: <code>delete INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>delete 2</code><br>
+Deletes the 2nd person in the address book.</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>delete 1</code><br>
+Deletes the 1st person in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">2.7. Selecting a person : <code>select</code></a></h3>
+<div class="paragraph">
+<p>Selects the person identified by the index number used in the last person listing.<br>
+Format: <code>select INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Selects the person and loads the Google search page the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>select 2</code><br>
+Selects the 2nd person in the address book.</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>select 1</code><br>
+Selects the 1st person in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">2.8. Listing entered commands : <code>history</code></a></h3>
+<div class="paragraph">
+<p>Lists all the commands that you have entered in reverse chronological order.<br>
+Format: <code>history</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Pressing the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows will display the previous and next input respectively in the command box.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">2.9. Undoing previous command : <code>undo</code></a></h3>
+<div class="paragraph">
+<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
+Format: <code>undo</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete 1</code><br>
+<code>list</code><br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+</li>
+<li>
+<p><code>select 1</code><br>
+<code>list</code><br>
+<code>undo</code><br>
+The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
+</li>
+<li>
+<p><code>delete 1</code><br>
+<code>clear</code><br>
+<code>undo</code> (reverses the <code>clear</code> command)<br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">2.10. Redoing the previously undone command : <code>redo</code></a></h3>
+<div class="paragraph">
+<p>Reverses the most recent <code>undo</code> command.<br>
+Format: <code>redo</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete 1</code><br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br>
+<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
+</li>
+<li>
+<p><code>delete 1</code><br>
+<code>redo</code><br>
+The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously.</p>
+</li>
+<li>
+<p><code>delete 1</code><br>
+<code>clear</code><br>
+<code>undo</code> (reverses the <code>clear</code> command)<br>
+<code>undo</code> (reverses the <code>delete 1</code> command)<br>
+<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
+<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">2.11. Clearing all entries : <code>clear</code></a></h3>
+<div class="paragraph">
+<p>Clears all entries from the address book.<br>
+Format: <code>clear</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">2.12. Exiting the program : <code>exit</code></a></h3>
+<div class="paragraph">
+<p>Exits the program.<br>
+Format: <code>exit</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">2.13. Saving the data</a></h3>
+<div class="paragraph">
+<p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+There is no need to save manually.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="new-features"><a class="link" href="#new-features">3. New Features</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="since-v1-0"><a class="link" href="#since-v1-0">3.1. Since v1.0</a></h3>
+<div class="sect3">
+<h4 id="static-code-coloured-code-tags"><a class="link" href="#static-code-coloured-code-tags">3.1.1. Static <code>coloured</code> tags</a></h4>
+<div class="paragraph">
+<p>Tags generated will automatically be assigned a unique color.+
+Similar tags will also be assigned the same colour as long as tags have the same spelling.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="display-of-code-total-person-code"><a class="link" href="#display-of-code-total-person-code">3.1.2. Display of <code>total person</code></a></h4>
+<div class="paragraph">
+<p>Total number of person in addressbook will now be displayed at the footer bar.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="since-v1-1"><a class="link" href="#since-v1-1">3.2. Since v1.1</a></h3>
+<div class="sect3">
+<h4 id="locating-persons-by-names-or-phone-numbers-or-tags-code-finds-code"><a class="link" href="#locating-persons-by-names-or-phone-numbers-or-tags-code-finds-code">3.2.1. Locating persons by names or phone numbers or tags: <code>finds</code></a></h4>
 <div class="paragraph">
 <p>Finds persons who contain any of the given keywords.<br>
 Format: <code>finds n/[MORE_KEYWORDS] or p/[MORE_KEYWORDS] or t/[MORE_KEYWORDS]</code></p>
@@ -344,59 +572,35 @@ Returns any person having tags <code>[friends]</code> or <code>[colleagues]</cod
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">2.7. Deleting a person : <code>delete</code></a></h3>
+<div class="sect3">
+<h4 id="extra-code-options-code-menu"><a class="link" href="#extra-code-options-code-menu">3.2.2. Extra <code>options</code> menu</a></h4>
 <div class="paragraph">
-<p>Deletes the specified person from the address book.<br>
-Format: <code>delete INDEX</code></p>
+<p>Each user will have an extra list of options to choose from beside their name.<br>
+Icon is similar to a down arrow.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="code-delete-code-option"><a class="link" href="#code-delete-code-option">3.2.3. <code>Delete</code> option</a></h4>
+<div class="paragraph">
+<p>This feature can be found under the new <code>options</code> menu
+Deletes the user according to the selected option&#8217;s parent person.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="since-v1-2"><a class="link" href="#since-v1-2">3.3. Since v1.2</a></h3>
+<div class="sect3">
+<h4 id="displaying-google-map-code-gmap-code"><a class="link" href="#displaying-google-map-code-gmap-code">3.3.1. Displaying google map : <code>gmap</code></a></h4>
+<div class="paragraph">
+<p>Displays the google map of the person identified by the index number used in the last person listing.<br>
+Format: <code>gmap INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Deletes the person at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>delete 2</code><br>
-Deletes the 2nd person in the address book.</p>
-</li>
-<li>
-<p><code>find Betsy</code><br>
-<code>delete 1</code><br>
-Deletes the 1st person in the results of the <code>find</code> command.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">2.8. Selecting a person : <code>select</code></a></h3>
-<div class="paragraph">
-<p>Selects the person identified by the index number used in the last person listing.<br>
-Format: <code>select INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Selects the person and loads the Google search page the person at the specified <code>INDEX</code>.</p>
+<p>Loads the peron&#8217;s address into Google map page at the specified <code>INDEX</code>.</p>
 </li>
 <li>
 <p>The index refers to the index number shown in the most recent listing.</p>
@@ -415,195 +619,63 @@ Format: <code>select INDEX</code></p>
 <ul>
 <li>
 <p><code>list</code><br>
-<code>select 2</code><br>
-Selects the 2nd person in the address book.</p>
+<code>gmap 2</code><br>
+Display google map of the 2nd person in the address book.</p>
 </li>
 <li>
 <p><code>find Betsy</code><br>
-<code>select 1</code><br>
-Selects the 1st person in the results of the <code>find</code> command.</p>
+<code>gmap 1</code><br>
+Display google map the 1st person in the results of the <code>find</code> command.</p>
 </li>
 </ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">2.9. Listing entered commands : <code>history</code></a></h3>
-<div class="paragraph">
-<p>Lists all the commands that you have entered in reverse chronological order.<br>
-Format: <code>history</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Pressing the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows will display the previous and next input respectively in the command box.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">2.10. Undoing previous command : <code>undo</code></a></h3>
-<div class="paragraph">
-<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
-Format: <code>undo</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete 1</code><br>
-<code>list</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>select 1</code><br>
-<code>list</code><br>
-<code>undo</code><br>
-The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">2.11. Redoing the previously undone command : <code>redo</code></a></h3>
-<div class="paragraph">
-<p>Reverses the most recent <code>undo</code> command.<br>
-Format: <code>redo</code></p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete 1</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>redo</code><br>
-The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">2.12. Clearing all entries : <code>clear</code></a></h3>
-<div class="paragraph">
-<p>Clears all entries from the address book.<br>
-Format: <code>clear</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">2.13. Exiting the program : <code>exit</code></a></h3>
-<div class="paragraph">
-<p>Exits the program.<br>
-Format: <code>exit</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">2.14. Saving the data</a></h3>
-<div class="paragraph">
-<p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="extra-code-options-code-menu"><a class="link" href="#extra-code-options-code-menu">2.15. Extra <code>options</code> menu</a></h3>
-<div class="paragraph">
-<p>Each user will have an extra list of options to choose from beside their name.<br>
-Icon is similar to a down arrow.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="delete-function-from-code-options-code"><a class="link" href="#delete-function-from-code-options-code">2.16. Delete function from <code>options</code></a></h3>
-<div class="paragraph">
-<p>Deletes the specified person from the address book.<br>
-Function can be found from the new <code>options</code> feature.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="coming-soon-in-v2-0"><a class="link" href="#coming-soon-in-v2-0">2.17. Coming soon in v2.0</a></h3>
-<div class="sect3">
-<h4 id="googlemap-function-from-code-options-code"><a class="link" href="#googlemap-function-from-code-options-code">2.17.1. GoogleMap function from <code>options</code></a></h4>
-<div class="paragraph">
-<p>Show google maps data based on person&#8217;s address.<br>
-Function will be found from the new <code>options</code> feature.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="import-export-of-addressbook-from-header-menu-bar"><a class="link" href="#import-export-of-addressbook-from-header-menu-bar">2.17.2. Import export of addressbook from header menu bar</a></h4>
+<h4 id="code-google-map-code-option"><a class="link" href="#code-google-map-code-option">3.3.2. <code>Google map</code> option</a></h4>
+<div class="paragraph">
+<p>This feature can be found under the new <code>options</code> menu
+Display the google map data into browser panel based on person&#8217;s address.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="coming-soon-in-v2-0"><a class="link" href="#coming-soon-in-v2-0">3.4. Coming soon in v2.0</a></h3>
+<div class="sect3">
+<h4 id="import-export-of-addressbook-from-header-menu-bar"><a class="link" href="#import-export-of-addressbook-from-header-menu-bar">3.4.1. Import export of addressbook from header menu bar</a></h4>
 <div class="paragraph">
 <p>An option to import external addressbook data in xml format.<br>
 An option to export local addressbook data in xml format.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="themes-selection-for-mybook-interface-from-header-menu-bar"><a class="link" href="#themes-selection-for-mybook-interface-from-header-menu-bar">2.17.3. Themes selection for myBook interface from header menu bar</a></h4>
+<h4 id="themes-selection-for-mybook-interface-from-header-menu-bar"><a class="link" href="#themes-selection-for-mybook-interface-from-header-menu-bar">3.4.2. Themes selection for myBook interface from header menu bar</a></h4>
 <div class="paragraph">
 <p>Allows user to select from a range of user interface themes<br>
 Function will be found from the new <code>options</code> feature.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="close-panels-in-ui-from-code-button-code"><a class="link" href="#close-panels-in-ui-from-code-button-code">2.17.4. Close panels in UI from <code>Button</code></a></h4>
+<h4 id="close-panels-in-ui-from-code-button-code"><a class="link" href="#close-panels-in-ui-from-code-button-code">3.4.3. Close panels in UI from <code>Button</code></a></h4>
 <div class="paragraph">
 <p>Allows user to open or close panels in UI when not needed<br>
 Functions will be found from the new <code>Button</code> feature</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="list-important-contacts-from-code-important-tag-code"><a class="link" href="#list-important-contacts-from-code-important-tag-code">2.17.5. List important contacts from <code>[important] tag</code></a></h4>
+<h4 id="list-important-contacts-from-code-important-tag-code"><a class="link" href="#list-important-contacts-from-code-important-tag-code">3.4.4. List important contacts from <code>[important] tag</code></a></h4>
 <div class="paragraph">
 <p>Person with [important] tag will always appear at the top of the list</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-group-of-persons-from-improved-code-delete-command-code"><a class="link" href="#deleting-a-group-of-persons-from-improved-code-delete-command-code">2.17.6. Deleting a group of persons from improved <code>delete command</code></a></h4>
+<h4 id="deleting-a-group-of-persons-from-improved-code-delete-command-code"><a class="link" href="#deleting-a-group-of-persons-from-improved-code-delete-command-code">3.4.5. Deleting a group of persons from improved <code>delete command</code></a></h4>
 <div class="paragraph">
 <p>Allows user to delete a group of people through name  or tags<br>
 Functions will be found from improved <code>delete</code> command</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="display-all-tags-from-code-new-ui-panel-code"><a class="link" href="#display-all-tags-from-code-new-ui-panel-code">2.17.7. Display all tags from <code>new UI panel</code></a></h4>
+<h4 id="display-all-tags-from-code-new-ui-panel-code"><a class="link" href="#display-all-tags-from-code-new-ui-panel-code">3.4.6. Display all tags from <code>new UI panel</code></a></h4>
 <div class="paragraph">
 <p>All the tags in user myBook App will be displayed in a new UI panel<br>
 Functions wll be found from <code>new UI panel</code></p>
@@ -613,7 +685,7 @@ Functions wll be found from <code>new UI panel</code></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">3. FAQ</a></h2>
+<h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
@@ -622,7 +694,7 @@ Functions wll be found from <code>new UI panel</code></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">4. Command Summary</a></h2>
+<h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -677,7 +749,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-15 17:43:22 +00:00
+Last updated 2017-10-15 19:22:25 +00:00
 </div>
 </div>
 </body>
