@@ -506,10 +506,10 @@ Similar tags will also be assigned the same colour as long as tags have the same
 <div class="sect2">
 <h3 id="since-v1-1"><a class="link" href="#since-v1-1">3.2. Since v1.1</a></h3>
 <div class="sect3">
-<h4 id="locating-persons-by-names-or-phone-numbers-or-tags-code-finds-code"><a class="link" href="#locating-persons-by-names-or-phone-numbers-or-tags-code-finds-code">3.2.1. Locating persons by names or phone numbers or tags: <code>finds</code></a></h4>
+<h4 id="locating-persons-by-names-or-phone-numbers-or-emails-or-tags-code-finds-code"><a class="link" href="#locating-persons-by-names-or-phone-numbers-or-emails-or-tags-code-finds-code">3.2.1. Locating persons by names or phone numbers or emails or tags: <code>finds</code></a></h4>
 <div class="paragraph">
 <p>Finds persons who contain any of the given keywords.<br>
-Format: <code>finds n/[MORE_KEYWORDS] or p/[MORE_KEYWORDS] or t/[MORE_KEYWORDS]</code></p>
+Format: <code>finds n/[MORE_KEYWORDS] or p/[MORE_KEYWORDS] or e/[MORE_KEYWORDS] or t/[MORE_KEYWORDS]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -520,6 +520,9 @@ Format: <code>finds n/[MORE_KEYWORDS] or p/[MORE_KEYWORDS] or t/[MORE_KEYWORDS]<
 </li>
 <li>
 <p>The search for tag is case sensitive. e.g <code>friends</code> will match <code>friends</code> but not <code>Friends</code></p>
+</li>
+<li>
+<p>The search for email is case sensitive. e.g <code>email@example.com will not match <a href="mailto:Email@example.com">Email@example.com</a></code></p>
 </li>
 <li>
 <p>The order of the keywords for name does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
@@ -560,6 +563,14 @@ Returns any person having phone number <code>91234567</code> exactly</p>
 <li>
 <p><code>finds p/91234567 12345678</code><br>
 Returns any person having phone number <code>91234567</code> or <code>12345678</code> exactly</p>
+</li>
+<li>
+<p><code>finds e/amy@example.com</code><br>
+Returns any person having email <code>amy@example.com</code> exactly</p>
+</li>
+<li>
+<p><code>finds e/amy@example.com <a href="mailto:john@example.com">john@example.com</a></code><br>
+Returns any person having email <code>amy@example.com</code> or <code>john@example.com</code> exactly</p>
 </li>
 <li>
 <p><code>finds t/[friends]</code><br>
@@ -755,7 +766,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-17 10:43:55 +00:00
+Last updated 2017-10-18 04:23:19 +00:00
 </div>
 </div>
 </body>
