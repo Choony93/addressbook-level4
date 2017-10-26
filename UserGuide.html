@@ -522,7 +522,7 @@ Format: <code>finds n/[MORE_KEYWORDS] or p/[MORE_KEYWORDS] or e/[MORE_KEYWORDS] 
 <p>The search for tag is case sensitive. e.g <code>friends</code> will match <code>friends</code> but not <code>Friends</code></p>
 </li>
 <li>
-<p>The search for email is case sensitive. e.g <code>email@example.com will not match <a href="mailto:Email@example.com">Email@example.com</a></code></p>
+<p>The search for email is case sensitive. e.g <code>email@example.com</code> will not match <code>Email@example.com</code></p>
 </li>
 <li>
 <p>The order of the keywords for name does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
@@ -644,7 +644,7 @@ Display google map the 1st person in the results of the <code>find</code> comman
 <div class="sect3">
 <h4 id="code-google-map-code-option"><a class="link" href="#code-google-map-code-option">3.3.2. <code>Google map</code> option</a></h4>
 <div class="paragraph">
-<p>This feature can be found under the new <code>options</code> menu
+<p>This feature can be found under the new <code>options</code> menu.<br>
 Display the google map data into browser panel based on person&#8217;s address.</p>
 </div>
 </div>
@@ -652,9 +652,16 @@ Display the google map data into browser panel based on person&#8217;s address.<
 <h4 id="themes-selection-from-code-file-code-toolbar"><a class="link" href="#themes-selection-from-code-file-code-toolbar">3.3.3. Themes selection from <code>File</code> toolbar</a></h4>
 <div class="paragraph">
 <p>Allows user to select from a range of user interface themes<br>
-Function will be found from under the <code>File</code> section of menu toolbar.+
-Selected themes will be saved into user preference file upon exit of program.+
+Function will be found from under the <code>File</code> section of menu toolbar.<br>
+Selected themes will be saved into user preference file upon exit of program.<br>
 Reinitializing of myBook will display the previous choice of theme.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="code-important-code-or-code-important-code-tag"><a class="link" href="#code-important-code-or-code-important-code-tag">3.3.4. <code>Important</code> or <code>important</code> tag</a></h4>
+<div class="paragraph">
+<p>Contacts in user myBook app that has <code>Important</code> or <code>important</code> tag will always appear at the top of the list.<br>
+User using versions before v1.2 should add a new person with <code>important</code> tag first to enjoy this feature.</p>
 </div>
 </div>
 </div>
@@ -670,28 +677,29 @@ An option to export local addressbook data in xml format.</p>
 <div class="sect3">
 <h4 id="close-panels-in-ui-from-code-button-code"><a class="link" href="#close-panels-in-ui-from-code-button-code">3.4.2. Close panels in UI from <code>Button</code></a></h4>
 <div class="paragraph">
-<p>Allows user to open or close panels in UI when not needed<br>
-Functions will be found from the new <code>Button</code> feature</p>
+<p>Allows user to open or close panels in UI when not needed.<br>
+Functions will be found from the new <code>Button</code> feature.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="list-important-contacts-from-code-important-tag-code"><a class="link" href="#list-important-contacts-from-code-important-tag-code">3.4.3. List important contacts from <code>[important] tag</code></a></h4>
+<h4 id="deleting-a-group-of-persons-from-improved-code-delete-command-code"><a class="link" href="#deleting-a-group-of-persons-from-improved-code-delete-command-code">3.4.3. Deleting a group of persons from improved <code>delete command</code></a></h4>
 <div class="paragraph">
-<p>Person with [important] tag will always appear at the top of the list</p>
+<p>Allows user to delete a group of people through name  or tags.<br>
+Functions will be found from improved <code>delete</code> command.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-group-of-persons-from-improved-code-delete-command-code"><a class="link" href="#deleting-a-group-of-persons-from-improved-code-delete-command-code">3.4.4. Deleting a group of persons from improved <code>delete command</code></a></h4>
+<h4 id="display-all-tags-from-code-new-ui-panel-code"><a class="link" href="#display-all-tags-from-code-new-ui-panel-code">3.4.4. Display all tags from <code>new UI panel</code></a></h4>
 <div class="paragraph">
-<p>Allows user to delete a group of people through name  or tags<br>
-Functions will be found from improved <code>delete</code> command</p>
+<p>All the tags in user myBook App will be displayed in a new UI panel.<br>
+Functions wll be found from <code>new UI panel</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="display-all-tags-from-code-new-ui-panel-code"><a class="link" href="#display-all-tags-from-code-new-ui-panel-code">3.4.5. Display all tags from <code>new UI panel</code></a></h4>
+<h4 id="contact-list-arranged-in-alphabetical-order-from-improved-code-list-command-code"><a class="link" href="#contact-list-arranged-in-alphabetical-order-from-improved-code-list-command-code">3.4.5. Contact list arranged in alphabetical order from improved <code>list command</code></a></h4>
 <div class="paragraph">
-<p>All the tags in user myBook App will be displayed in a new UI panel<br>
-Functions wll be found from <code>new UI panel</code></p>
+<p>All contacts in the list will sorted in ascending alphabetical order. <br>
+Functions wll be found from improved <code>list</code> command.</p>
 </div>
 </div>
 </div>
@@ -735,7 +743,7 @@ e.g. <code>gmap 1</code></p>
 e.g. <code>find James Jake</code></p>
 </li>
 <li>
-<p><strong>Find by names or phone numbers or tags</strong> : <code>finds n/KEYWORD [MORE_KEYWORDS]</code> or <code>finds p/KEYWORD [MORE_KEYWORDS]</code> or <code>finds t/[KEYWORD] [MORE_KEYWORDS]</code><br>
+<p><strong>Find by names or phone numbers or email or tags</strong> : <code>finds n/KEYWORD [MORE_KEYWORDS]</code> or <code>finds p/KEYWORD [MORE_KEYWORDS]</code> or <code>finds e/KEYWORD [MORE_KEYWORDS]</code> or <code>finds t/[KEYWORD] [MORE_KEYWORDS]</code><br>
 e.g. <code>finds n/James Jake</code>
 e.g  <code>finds p/98765432</code>
 e.g. <code>finds t/[Friends] [colleagues]</code></p>
@@ -766,7 +774,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-26 09:19:16 +00:00
+Last updated 2017-10-26 10:10:10 +00:00
 </div>
 </div>
 </body>
