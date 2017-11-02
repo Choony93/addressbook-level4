@@ -841,7 +841,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <p>It is implemented to search with one type of detail only so that the returned results will be relevant to that type of detail used only. i.e. if a user search for a person with phone number then only the phone numbers of the returned contacts are relevant, and other details are irrelevant to the input phone number during the search.</p>
 </div>
 <div class="paragraph">
-<p>Alternative considered is to allow user input multiple details in each search. It may help to narrow down and shorten the list of contacts that will be returned, but it is not useful as user may only recall some details of a person only and thus not implemented . For example:</p>
+<p>Alternative considered is to allow user input multiple details in each search. It may help to narrow down and shorten the list of contacts that will be returned, but it is not useful as user may only recall some details of a person only. For example:</p>
 </div>
 <div class="paragraph">
 <p><strong>Scenario one</strong></p>
@@ -888,7 +888,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </ul>
 </div>
 <div class="paragraph">
-<p>From the two scenarios, we know that unless the user knows the exact details (i.e. full name, exact phone number, exact email and etc) otherwise this <code>finds</code> command is practically not useful as no results will be returned.</p>
+<p>From the two scenarios, we know that unless the user knows the exact details (i.e. full name, exact phone number, exact email and etc) otherwise <code>finds</code> command with multiple details input is practically not useful as no results will be returned.</p>
 </div>
 </div>
 </div>
@@ -1843,6 +1843,12 @@ for <code>RemarkCommandParser</code>.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">save time from deleting one by one</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">to be able to add birthday details to contacts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">check for a person&#8217;s birthday</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">add birthday date to contact</p></td>
@@ -2099,7 +2105,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-27 02:38:25 +00:00
+Last updated 2017-11-02 09:36:01 +00:00
 </div>
 </div>
 </body>
