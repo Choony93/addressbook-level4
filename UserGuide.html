@@ -31,7 +31,7 @@
 <li><a href="#adding-a-person-code-add-code">2.2. Adding a person: <code>add</code></a></li>
 <li><a href="#listing-all-persons-code-list-code">2.3. Listing all persons : <code>list</code></a></li>
 <li><a href="#editing-a-person-code-edit-code">2.4. Editing a person : <code>edit</code></a></li>
-<li><a href="#locating-persons-by-name-code-find-code">2.5. Locating persons by name: <code>find</code></a></li>
+<li><a href="#locating-persons-by-name-code-find-code-obsoleted">2.5. Locating persons by name: <code>find</code> (obsoleted)</a></li>
 <li><a href="#deleting-a-person-code-delete-code">2.6. Deleting a person : <code>delete</code></a></li>
 <li><a href="#selecting-a-person-code-select-code">2.7. Selecting a person : <code>select</code></a></li>
 <li><a href="#listing-entered-commands-code-history-code">2.8. Listing entered commands : <code>history</code></a></li>
@@ -117,6 +117,9 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </li>
 <li>
 <p>Refer to the <a href="#features">Features</a> section below for details of each command.</p>
+</li>
+<li>
+<p>Refer to the <a href="#command-summary">Command Summary</a> section below for summary of each command.</p>
 </li>
 </ol>
 </div>
@@ -240,7 +243,20 @@ Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all 
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-persons-by-name-code-find-code"><a class="link" href="#locating-persons-by-name-code-find-code">2.5. Locating persons by name: <code>find</code></a></h3>
+<h3 id="locating-persons-by-name-code-find-code-obsoleted"><a class="link" href="#locating-persons-by-name-code-find-code-obsoleted">2.5. Locating persons by name: <code>find</code> (obsoleted)</a></h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This 'find' command is obsoleted .<br>
+Please refer to new <a href="#since-code-v1-1-code">finds</a> command.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Finds persons whose names contain any of the given keywords.<br>
 Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
@@ -783,6 +799,50 @@ All other details that are not provided will be filled in by default values as s
 <p><em>Figure 3.5.1.1 : Default values for empty fields</em></p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="import-xml-addressbook-command"><a class="link" href="#import-xml-addressbook-command">3.5.2. Import XML addressbook command</a></h4>
+<div class="paragraph">
+<p>External addressbook can now be imported using <code>import</code> command</p>
+</div>
+<div class="paragraph">
+<p>Appends current addreessbook persons with given URL.<br>
+Format: <code>import [ABSOULTE_PATH]</code><br>
+Format: <code>import [RELATIVE_PATH]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Loads the XML addressbook file from given path.</p>
+</li>
+<li>
+<p>If person name from new addressbook does not exist, add into local addressbook.</p>
+</li>
+<li>
+<p>If person name from new addressbook already exist, update into local addressbook.</p>
+</li>
+<li>
+<p>The XML file from given path <strong>must exist</strong>.</p>
+</li>
+<li>
+<p>The XML file from given path must be <strong>well-formed</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="paragraph">
+<p><code>import C:\Users\Choony\newAddressbook.xml</code><br>
+Add new persons from newAddressBook into local addressbook.<br>
+<code>import data\addressbok2.xml</code><br>
+Add new persons from addressbook2 from local project<br>
+folder <strong>data</strong> into local addressbook.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="coming-soon-in-code-v2-0-code"><a class="link" href="#coming-soon-in-code-v2-0-code">3.6. Coming soon in <code>v2.0</code></a></h3>
@@ -832,7 +892,7 @@ Functions wll be found from <code>new UI panel</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Add</strong> <code>add n/NAME p/PHONE_NUMBER b/BIRTHDAY e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
+<p><strong>Add</strong> : <code>add n/NAME p/PHONE_NUMBER b/BIRTHDAY e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
 e.g. <code>add n/James Ho p/22224444 b/21/07/1991 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague</code></p>
 </li>
 <li>
@@ -847,18 +907,14 @@ e.g. <code>delete 3</code></p>
 e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
 </li>
 <li>
+<p><strong>Find</strong> : <code>finds n/KEYWORD [MORE_KEYWORDS]</code> or <code>finds p/KEYWORD [MORE_KEYWORDS]</code> or <code>finds e/KEYWORD [MORE_KEYWORDS]</code> or <code>finds t/[KEYWORD] [MORE_KEYWORDS]</code><br>
+e.g. <code>finds n/James Jake</code><br>
+e.g  <code>finds p/98765432</code><br>
+e.g. <code>finds t/[Friends] [colleagues]</code></p>
+</li>
+<li>
 <p><strong>Google Map</strong> : <code>gmap INDEX</code><br>
 e.g. <code>gmap 1</code></p>
-</li>
-<li>
-<p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
-e.g. <code>find James Jake</code></p>
-</li>
-<li>
-<p><strong>Find by names or phone numbers or email or tags</strong> : <code>finds n/KEYWORD [MORE_KEYWORDS]</code> or <code>finds p/KEYWORD [MORE_KEYWORDS]</code> or <code>finds e/KEYWORD [MORE_KEYWORDS]</code> or <code>finds t/[KEYWORD] [MORE_KEYWORDS]</code><br>
-e.g. <code>finds n/James Jake</code>
-e.g  <code>finds p/98765432</code>
-e.g. <code>finds t/[Friends] [colleagues]</code></p>
 </li>
 <li>
 <p><strong>List</strong> : <code>list</code></p>
@@ -871,6 +927,11 @@ e.g. <code>finds t/[Friends] [colleagues]</code></p>
 e.g.<code>select 2</code></p>
 </li>
 <li>
+<p><strong>Theme</strong> : <code>theme INDEX</code> or <code>theme NAME</code><br>
+e.g. <code>theme 1</code><br>
+e.g. <code>theme caspian</code></p>
+</li>
+<li>
 <p><strong>History</strong> : <code>history</code></p>
 </li>
 <li>
@@ -879,6 +940,10 @@ e.g.<code>select 2</code></p>
 <li>
 <p><strong>Redo</strong> : <code>redo</code></p>
 </li>
+<li>
+<p><strong>Remark</strong> : <code>remark INDEX r/REMARK</code><br>
+e.g. <code>remark 1 r/CS2103 is fun</code></p>
+</li>
 </ul>
 </div>
 </div>
@@ -886,7 +951,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-02 09:36:01 +00:00
+Last updated 2017-11-03 03:27:31 +00:00
 </div>
 </div>
 </body>
