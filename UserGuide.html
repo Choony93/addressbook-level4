@@ -54,14 +54,16 @@
 <li><a href="#option-menu-code-google-map-code-v1-2">3.7. Option Menu <code>Google map</code> (v1.2)</a></li>
 <li><a href="#themes-selection-from-code-file-code-toolbar-v1-2">3.8. Themes selection from <code>File</code> toolbar (v1.2)</a></li>
 <li><a href="#code-important-code-or-code-important-code-tag-v1-2">3.9. <code>Important</code> or <code>important</code> tag (v1.2)</a></li>
-<li><a href="#gmap-command-accepts-uperson-name-v1-3">3.10. Gmap command accepts uperson name (v1.3)</a></li>
-<li><a href="#changing-theme-with-cli-command-v1-3">3.11. Changing theme with CLI command (v1.3)</a></li>
-<li><a href="#remarking-a-person-with-code-remark-code-command-v1-3">3.12. Remarking a person with <code>remark</code> command (v1.3)</a></li>
-<li><a href="#quick-adding-using-improved-code-add-code-command-v1-4">3.13. Quick adding using improved <code>add</code> Command (v1.4)</a></li>
-<li><a href="#option-menu-code-add-photo-code-v1-4">3.14. Option Menu <code>Add photo</code> (v1.4)</a></li>
-<li><a href="#import-xml-addressbook-command-v1-4">3.15. Import XML addressbook command (v1.4)</a></li>
-<li><a href="#add-a-remark-in-code-add-code-command-v1-4">3.16. Add a remark in <code>add</code> command (v1.4)</a></li>
-<li><a href="#coming-soon-in-code-v2-0-code">3.17. Coming soon in <code>v2.0</code></a></li>
+<li><a href="#add-birthday">3.10. Add Birthday</a></li>
+<li><a href="#sorted-contacts-v1-3">3.11. Sorted Contacts (v1.3)</a></li>
+<li><a href="#gmap-command-accepts-uperson-name-v1-3">3.12. Gmap command accepts uperson name (v1.3)</a></li>
+<li><a href="#changing-theme-with-cli-command-v1-3">3.13. Changing theme with CLI command (v1.3)</a></li>
+<li><a href="#remarking-a-person-with-code-remark-code-command-v1-3">3.14. Remarking a person with <code>remark</code> command (v1.3)</a></li>
+<li><a href="#quick-adding-using-improved-code-add-code-command-v1-4">3.15. Quick adding using improved <code>add</code> Command (v1.4)</a></li>
+<li><a href="#option-menu-code-add-photo-code-v1-4">3.16. Option Menu <code>Add photo</code> (v1.4)</a></li>
+<li><a href="#import-xml-addressbook-command-v1-4">3.17. Import XML addressbook command (v1.4)</a></li>
+<li><a href="#add-a-remark-in-code-add-code-command-v1-4">3.18. Add a remark in <code>add</code> command (v1.4)</a></li>
+<li><a href="#coming-soon-in-code-v2-0-code">3.19. Coming soon in <code>v2.0</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -194,10 +196,10 @@ A person can have any number of tags (including 0)
 <div class="ulist">
 <ul>
 <li>
-<p><code>add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
+<p><code>add n/John Doe p/98765432 b/21/07/1991 e/johnd@example.com a/John street, block 123, #01-01</code></p>
 </li>
 <li>
-<p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</code></p>
+<p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison b/21/07/1991 p/1234567 t/criminal</code></p>
 </li>
 </ul>
 </div>
@@ -213,7 +215,7 @@ Format: <code>list</code></p>
 <h3 id="editing-a-person-code-edit-code"><a class="link" href="#editing-a-person-code-edit-code">2.4. Editing a person : <code>edit</code></a></h3>
 <div class="paragraph">
 <p>Edits an existing person in the address book.<br>
-Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
+Format: <code>edit INDEX [n/NAME] [p/PHONE] [b/BIRTHDAY] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -738,8 +740,20 @@ Reinitializing of myBook will display the previous choice of theme.</p>
 <p>Contacts in user myBook app that has <code>Important</code> or <code>important</code> tag will always appear at the top of the list.<br>
 User using versions before v1.2 should add a new person with <code>important</code> tag first to enjoy this feature.</p>
 </div>
-<div class="sect3">
-<h4 id="sorted-contacts-v1-3"><a class="link" href="#sorted-contacts-v1-3">3.9.1. Sorted Contacts (v1.3)</a></h4>
+</div>
+<div class="sect2">
+<h3 id="add-birthday"><a class="link" href="#add-birthday">3.10. Add Birthday</a></h3>
+<div class="paragraph">
+<p><strong>Author</strong>: Wei Ren Kai</p>
+</div>
+<div class="paragraph">
+<p>All persons can now add in their birthday on the command line
+Format <code>b/dd/mm/yyyy</code> allow Mybook to keep track all students birthday
+Easy to identify who&#8217;s birthday is coming up on that month.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sorted-contacts-v1-3"><a class="link" href="#sorted-contacts-v1-3">3.11. Sorted Contacts (v1.3)</a></h3>
 <div class="paragraph">
 <p><strong>Author</strong>: Soh Hong Hwee</p>
 </div>
@@ -749,9 +763,8 @@ Using <code>List</code> command will always display all persons in sorted ascedn
 Persons with <code>Important</code> or <code>important</code> tag will be at the top in ascending alphabetical order then follow by other persons.</p>
 </div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="gmap-command-accepts-uperson-name-v1-3"><a class="link" href="#gmap-command-accepts-uperson-name-v1-3">3.10. Gmap command accepts uperson name (v1.3)</a></h3>
+<h3 id="gmap-command-accepts-uperson-name-v1-3"><a class="link" href="#gmap-command-accepts-uperson-name-v1-3">3.12. Gmap command accepts uperson name (v1.3)</a></h3>
 <div class="paragraph">
 <p><strong>Author</strong>: Ng Choon Heng</p>
 </div>
@@ -798,7 +811,7 @@ Display google map of the person in the results of the <code>find</code> command
 </div>
 </div>
 <div class="sect2">
-<h3 id="changing-theme-with-cli-command-v1-3"><a class="link" href="#changing-theme-with-cli-command-v1-3">3.11. Changing theme with CLI command (v1.3)</a></h3>
+<h3 id="changing-theme-with-cli-command-v1-3"><a class="link" href="#changing-theme-with-cli-command-v1-3">3.13. Changing theme with CLI command (v1.3)</a></h3>
 <div class="paragraph">
 <p><strong>Author</strong>: Ng Choon Heng</p>
 </div>
@@ -855,7 +868,7 @@ Changes the addressbook theme to theme <code>INDEX</code> of one, which is defau
 </div>
 </div>
 <div class="sect2">
-<h3 id="remarking-a-person-with-code-remark-code-command-v1-3"><a class="link" href="#remarking-a-person-with-code-remark-code-command-v1-3">3.12. Remarking a person with <code>remark</code> command (v1.3)</a></h3>
+<h3 id="remarking-a-person-with-code-remark-code-command-v1-3"><a class="link" href="#remarking-a-person-with-code-remark-code-command-v1-3">3.14. Remarking a person with <code>remark</code> command (v1.3)</a></h3>
 <div class="paragraph">
 <p><strong>Author</strong>: Beh Bee Yee</p>
 </div>
@@ -900,7 +913,7 @@ Removes the remark for the first person.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="quick-adding-using-improved-code-add-code-command-v1-4"><a class="link" href="#quick-adding-using-improved-code-add-code-command-v1-4">3.13. Quick adding using improved <code>add</code> Command (v1.4)</a></h3>
+<h3 id="quick-adding-using-improved-code-add-code-command-v1-4"><a class="link" href="#quick-adding-using-improved-code-add-code-command-v1-4">3.15. Quick adding using improved <code>add</code> Command (v1.4)</a></h3>
 <div class="paragraph">
 <p><strong>Author</strong>: Soh Hong Hwee</p>
 </div>
@@ -918,7 +931,7 @@ All other details that are not provided will be filled in by default values as s
 </div>
 </div>
 <div class="sect2">
-<h3 id="option-menu-code-add-photo-code-v1-4"><a class="link" href="#option-menu-code-add-photo-code-v1-4">3.14. Option Menu <code>Add photo</code> (v1.4)</a></h3>
+<h3 id="option-menu-code-add-photo-code-v1-4"><a class="link" href="#option-menu-code-add-photo-code-v1-4">3.16. Option Menu <code>Add photo</code> (v1.4)</a></h3>
 <div class="paragraph">
 <p><strong>Author</strong>: Wei Ren Kai</p>
 </div>
@@ -928,7 +941,7 @@ Display the photo data into browser panel with a photo size of 100X100.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="import-xml-addressbook-command-v1-4"><a class="link" href="#import-xml-addressbook-command-v1-4">3.15. Import XML addressbook command (v1.4)</a></h3>
+<h3 id="import-xml-addressbook-command-v1-4"><a class="link" href="#import-xml-addressbook-command-v1-4">3.17. Import XML addressbook command (v1.4)</a></h3>
 <div class="paragraph">
 <p><strong>Author</strong>: Ng Choon Heng</p>
 </div>
@@ -975,7 +988,7 @@ folder <strong>data</strong> into local addressbook.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-a-remark-in-code-add-code-command-v1-4"><a class="link" href="#add-a-remark-in-code-add-code-command-v1-4">3.16. Add a remark in <code>add</code> command (v1.4)</a></h3>
+<h3 id="add-a-remark-in-code-add-code-command-v1-4"><a class="link" href="#add-a-remark-in-code-add-code-command-v1-4">3.18. Add a remark in <code>add</code> command (v1.4)</a></h3>
 <div class="paragraph">
 <p><strong>Author</strong>: Soh Hong Hwee</p>
 </div>
@@ -1011,23 +1024,23 @@ Adds the remark together with name, phone, email, address and tag for the new pe
 </div>
 </div>
 <div class="sect2">
-<h3 id="coming-soon-in-code-v2-0-code"><a class="link" href="#coming-soon-in-code-v2-0-code">3.17. Coming soon in <code>v2.0</code></a></h3>
+<h3 id="coming-soon-in-code-v2-0-code"><a class="link" href="#coming-soon-in-code-v2-0-code">3.19. Coming soon in <code>v2.0</code></a></h3>
 <div class="sect3">
-<h4 id="close-panels-in-ui-from-code-button-code"><a class="link" href="#close-panels-in-ui-from-code-button-code">3.17.1. Close panels in UI from <code>Button</code></a></h4>
+<h4 id="close-panels-in-ui-from-code-button-code"><a class="link" href="#close-panels-in-ui-from-code-button-code">3.19.1. Close panels in UI from <code>Button</code></a></h4>
 <div class="paragraph">
 <p>Allows user to open or close panels in UI when not needed.<br>
 Functions will be found from the new <code>Button</code> feature.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="deleting-a-group-of-persons-from-improved-code-delete-command-code"><a class="link" href="#deleting-a-group-of-persons-from-improved-code-delete-command-code">3.17.2. Deleting a group of persons from improved <code>delete command</code></a></h4>
+<h4 id="deleting-a-group-of-persons-from-improved-code-delete-command-code"><a class="link" href="#deleting-a-group-of-persons-from-improved-code-delete-command-code">3.19.2. Deleting a group of persons from improved <code>delete command</code></a></h4>
 <div class="paragraph">
 <p>Allows user to delete a group of people through name  or tags.<br>
 Functions will be found from improved <code>delete</code> command.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="display-all-tags-from-code-new-ui-panel-code"><a class="link" href="#display-all-tags-from-code-new-ui-panel-code">3.17.3. Display all tags from <code>new UI panel</code></a></h4>
+<h4 id="display-all-tags-from-code-new-ui-panel-code"><a class="link" href="#display-all-tags-from-code-new-ui-panel-code">3.19.3. Display all tags from <code>new UI panel</code></a></h4>
 <div class="paragraph">
 <p>All the tags in user myBook App will be displayed in a new UI panel.<br>
 Functions wll be found from <code>new UI panel</code>.</p>
@@ -1110,7 +1123,7 @@ e.g. <code>remark 1 r/CS2103 is fun</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-08 17:25:17 +00:00
+Last updated 2017-11-08 17:32:41 +00:00
 </div>
 </div>
 </body>
