@@ -47,7 +47,8 @@
 <li><a href="#undo-redo-mechanism">3.1. Undo/Redo mechanism</a></li>
 <li><a href="#logging">3.2. Logging</a></li>
 <li><a href="#configuration">3.3. Configuration</a></li>
-<li><a href="#find-person-s-using-different-details">3.4. Find person(s) using different details</a></li>
+<li><a href="#persisting-coloured-tags">3.4. Persisting coloured tags</a></li>
+<li><a href="#find-person-s-using-different-details">3.5. Find person(s) using different details</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -812,7 +813,101 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-person-s-using-different-details"><a class="link" href="#find-person-s-using-different-details">3.4. Find person(s) using different details</a></h3>
+<h3 id="persisting-coloured-tags"><a class="link" href="#persisting-coloured-tags">3.4. Persisting coloured tags</a></h3>
+<div class="paragraph">
+<p>Enhanced feature to allow unique coloured tags to persist after the program exits without having to save color data on external files.</p>
+</div>
+<div class="paragraph">
+<p>Full Code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>private static String getColorForTag(String tagValue) {
+
+        if (!tagColors.containsKey(tagValue)) {
+            int multiplier = 1;
+            int asciiSum = (tagValue.hashCode() &gt; 1) ? tagValue.hashCode() : tagValue.hashCode() * -1;
+
+            int colorRed = asciiSum % 256;
+            int colorGreen = (asciiSum / 2) % 256;
+            int colorBlue = (asciiSum / 3) % 256;
+            while ((colorRed + colorGreen + colorBlue) &gt; 700) {
+                asciiSum = (asciiSum / multiplier) * ++multiplier;
+                colorRed = asciiSum % 256;
+                colorGreen = (asciiSum / 2) % 256;
+                colorBlue = (asciiSum / 3) % 256;
+            }
+            String colorString = String.format("#%02x%02x%02x", colorRed, colorGreen, colorBlue);
+            tagColors.put(tagValue, colorString);
+        }
+
+        return tagColors.get(tagValue);
+    }</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Java&#8217;s <code>hashcode()</code> method from <strong>String</strong> library will be used to obtain a unique 32-bit integer hash value of the tag String. We first obtain the hashcode and ensure it is a positive value.
+(Note: Identical strings will result in the same hashcode value)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>int asciiSum = (tagValue.hashCode() &gt; 1) ? tagValue.hashCode() : tagValue.hashCode() * -1;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We then do a separate division of each color and modulus it by <strong>256</strong> to ensure that it will stay within the RGB limit of 0 - 255.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>int colorRed = asciiSum % 256;
+int colorGreen = (asciiSum / 2) % 256;
+int colorBlue = (asciiSum / 3) % 256;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To ensure that colors stays within visible range, we do a check if sum of RGB is above 700. If it is, it is likely that the color generated is too bright and would not be visible with the white font, hence regenerate the color again.
+We can use an incremental multiplier to regenerate another unique hashcode from the original hashcode. However, to prevent the numbers form getting exponentially large and exceeding the 32-bit sized integer, we shall first divide it by the previous multiplier.
+It is save to assume that chances of collision with other hashcodes is extremely low since we are using extremely large numbers.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>while ((colorRed + colorGreen + colorBlue) &gt; 700) {
+                asciiSum = (asciiSum / multiplier) * ++multiplier;
+                colorRed = asciiSum % 256;
+                colorGreen = (asciiSum / 2) % 256;
+                colorBlue = (asciiSum / 3) % 256;
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, we format the RBG values into hexadecimal format with a hex symbol in front to conform with conventional CSS color styling before adding it into the color tag.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.4.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Generating of colors for <code>colorTag</code>.<br>
+<strong>Alternative 1 (current choice):</strong> Generate unique color based on tag string.<br>
+<strong>Pros:</strong> Unique tags will always have unique colors.<br>
+<strong>Cons:</strong> Hard for new developers to understand the color code generation.<br>
+<strong>Alternative 2:</strong> Create a static list of limited colors and randomly retrieve colors from there.<br>
+<strong>Pros:</strong> Does not involve complex code generation, easier for new developers to understand.<br>
+<strong>Cons:</strong> Tag colors renew whenever program restarts.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Saving colors retain color persistence after program shuts down.<br>
+<strong>Alternative 1 (current choice):</strong> Morph in-built <code>hashcode()</code> function output to obtain RBG colors.<br>
+<strong>Pros:</strong> Color persistence without the need to save color details onto offline files.<br>
+<strong>Cons:</strong> Chances of certain tags resulting in generating very similar RGB colors.<br>
+<strong>Alternative 2:</strong> Save chosen tag colors onto external file.<br>
+<strong>Pros:</strong> Hard for new developers to understand how colors are retained.<br>
+<strong>Cons:</strong> Must create additional file and include additional unnecessary codes for read/write.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-person-s-using-different-details"><a class="link" href="#find-person-s-using-different-details">3.5. Find person(s) using different details</a></h3>
 <div class="paragraph">
 <p>The <code>finds</code> command is an improved version from <code>find</code> command. It allows user to search using other details such as phone number, email or tag instead of just name.</p>
 </div>
@@ -836,7 +931,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </ul>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.4.1. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.5.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p>It is implemented to search with one type of detail only so that the returned results will be relevant to that type of detail used only. i.e. if a user search for a person with phone number then only the phone numbers of the returned contacts are relevant, and other details are irrelevant to the input phone number during the search.</p>
 </div>
@@ -2105,7 +2200,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-03 13:01:35 +00:00
+Last updated 2017-11-08 17:10:01 +00:00
 </div>
 </div>
 </body>
