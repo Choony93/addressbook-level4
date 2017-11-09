@@ -822,27 +822,27 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>private static String getColorForTag(String tagValue) {
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">private</span> <span class="directive">static</span> <span class="predefined-type">String</span> getColorForTag(<span class="predefined-type">String</span> tagValue) {
 
-        if (!tagColors.containsKey(tagValue)) {
-            int multiplier = 1;
-            int asciiSum = (tagValue.hashCode() &gt; 1) ? tagValue.hashCode() : tagValue.hashCode() * -1;
+        <span class="keyword">if</span> (!tagColors.containsKey(tagValue)) {
+            <span class="type">int</span> multiplier = <span class="integer">1</span>;
+            <span class="type">int</span> asciiSum = (tagValue.hashCode() &gt; <span class="integer">1</span>) ? tagValue.hashCode() : tagValue.hashCode() * -<span class="integer">1</span>;
 
-            int colorRed = asciiSum % 256;
-            int colorGreen = (asciiSum / 2) % 256;
-            int colorBlue = (asciiSum / 3) % 256;
-            while ((colorRed + colorGreen + colorBlue) &gt; 700) {
+            <span class="type">int</span> colorRed = asciiSum % <span class="integer">256</span>;
+            <span class="type">int</span> colorGreen = (asciiSum / <span class="integer">2</span>) % <span class="integer">256</span>;
+            <span class="type">int</span> colorBlue = (asciiSum / <span class="integer">3</span>) % <span class="integer">256</span>;
+            <span class="keyword">while</span> ((colorRed + colorGreen + colorBlue) &gt; <span class="integer">700</span>) {
                 asciiSum = (asciiSum / multiplier) * ++multiplier;
-                colorRed = asciiSum % 256;
-                colorGreen = (asciiSum / 2) % 256;
-                colorBlue = (asciiSum / 3) % 256;
+                colorRed = asciiSum % <span class="integer">256</span>;
+                colorGreen = (asciiSum / <span class="integer">2</span>) % <span class="integer">256</span>;
+                colorBlue = (asciiSum / <span class="integer">3</span>) % <span class="integer">256</span>;
             }
-            String colorString = String.format("#%02x%02x%02x", colorRed, colorGreen, colorBlue);
+            <span class="predefined-type">String</span> colorString = <span class="predefined-type">String</span>.format(<span class="string"><span class="delimiter">&quot;</span><span class="content">#%02x%02x%02x</span><span class="delimiter">&quot;</span></span>, colorRed, colorGreen, colorBlue);
             tagColors.put(tagValue, colorString);
         }
 
-        return tagColors.get(tagValue);
-    }</pre>
+        <span class="keyword">return</span> tagColors.get(tagValue);
+    }</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -852,7 +852,7 @@ Function <strong>getColorForTag(String tagValue)</strong> is supposedly implemen
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>int asciiSum = (tagValue.hashCode() &gt; 1) ? tagValue.hashCode() : tagValue.hashCode() * -1;</pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">int</span> asciiSum = (tagValue.hashCode() &gt; <span class="integer">1</span>) ? tagValue.hashCode() : tagValue.hashCode() * -<span class="integer">1</span>;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -860,9 +860,9 @@ Function <strong>getColorForTag(String tagValue)</strong> is supposedly implemen
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>int colorRed = asciiSum % 256;
-int colorGreen = (asciiSum / 2) % 256;
-int colorBlue = (asciiSum / 3) % 256;</pre>
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">int</span> colorRed = asciiSum % <span class="integer">256</span>;
+<span class="type">int</span> colorGreen = (asciiSum / <span class="integer">2</span>) % <span class="integer">256</span>;
+<span class="type">int</span> colorBlue = (asciiSum / <span class="integer">3</span>) % <span class="integer">256</span>;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -872,12 +872,12 @@ It is save to assume that chances of collision with other hashcodes is extremely
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>while ((colorRed + colorGreen + colorBlue) &gt; 700) {
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">while</span> ((colorRed + colorGreen + colorBlue) &gt; <span class="integer">700</span>) {
                 asciiSum = (asciiSum / multiplier) * ++multiplier;
-                colorRed = asciiSum % 256;
-                colorGreen = (asciiSum / 2) % 256;
-                colorBlue = (asciiSum / 3) % 256;
-}</pre>
+                colorRed = asciiSum % <span class="integer">256</span>;
+                colorGreen = (asciiSum / <span class="integer">2</span>) % <span class="integer">256</span>;
+                colorBlue = (asciiSum / <span class="integer">3</span>) % <span class="integer">256</span>;
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2201,7 +2201,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-08 18:18:21 +00:00
+Last updated 2017-11-09 15:59:50 +00:00
 </div>
 </div>
 </body>
