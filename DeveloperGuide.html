@@ -49,6 +49,7 @@
 <li><a href="#configuration">3.3. Configuration</a></li>
 <li><a href="#persisting-coloured-tags">3.4. Persisting coloured tags</a></li>
 <li><a href="#find-person-s-using-different-details">3.5. Find person(s) using different details</a></li>
+<li><a href="#google-map-mechanism">3.6. Google Map Mechanism</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -985,6 +986,83 @@ It is save to assume that chances of collision with other hashcodes is extremely
 </div>
 <div class="paragraph">
 <p>From the two scenarios, we know that unless the user knows the exact details (i.e. full name, exact phone number, exact email and etc) otherwise <code>finds</code> command with multiple details input is practically not useful as no results will be returned.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="google-map-mechanism"><a class="link" href="#google-map-mechanism">3.6. Google Map Mechanism</a></h3>
+<div class="paragraph">
+<p>The Google map mechanism resides in a <code>GmapCommand</code> which also inherits from the <code>Command</code> object.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GmapClassDiagram.png" alt="width:100">
+</div>
+</div>
+<div class="paragraph">
+<p>There are two ways the user can utilize the Google map feature, first by entering the command into CommandBox or selecting the <strong>Google Map</strong> option from the dropdown menu on each <code>PersonCard</code> panel.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram can be seen below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GmapSequenceDiagram.png" alt="GmapSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The first way as you can see from the diagram, the user can input the command of <code>gmap</code> into <code>CommandBox</code> which will then have to go through command parser in the logic component before being raised in the events center. Doing so allows us to validate the requested index from user input before initializing a <code>GmapCommand</code> object.</p>
+</div>
+<div class="paragraph">
+<p><code>GmapCommand</code> object has double constructor that takes in either index-based or a predicate containing names to be searched.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> GmapCommand(Index targetIndex) {
+        <span class="local-variable">this</span>.usingIndex = <span class="predefined-constant">true</span>;
+        <span class="local-variable">this</span>.targetIndex = targetIndex;
+    }
+
+<span class="directive">public</span> GmapCommand(NameConsistsKeywordsPredicate predicate) {
+    <span class="local-variable">this</span>.usingIndex = <span class="predefined-constant">false</span>;
+    <span class="local-variable">this</span>.predicate = predicate;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Command execution residing in <strong>execute()</strong> will then attempt to validate the given index if it exists or returning the first index of a list of persons that matches all the predicate that the user has indicated.</p>
+</div>
+<div class="paragraph">
+<p>Finally, <strong>DisplayGmapEvent</strong> will be raised with this index in its parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">EventsCenter.getInstance().post(<span class="keyword">new</span> DisplayGmapEvent(targetIndex));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The second way is to select the Google Map option under the dropdown list on the GUI. Each <code>PersonCard</code> has its own handler which will automatically raise a DisplayGmapEvent with the <code>PersonCard</code> index as parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">void</span> handleGoogleMap() {
+    raise(<span class="keyword">new</span> DisplayGmapEvent(Index.fromOneBased(<span class="local-variable">this</span>.displayedIndex)));
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Event object will then be handled by the UI Component&#8217;s <code>BrowserPanel</code> and attempt to load the Google Map address with a custom url crafted with the person&#8217;s address using the provided index.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.6.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Loading of Google Map data`.<br>
+<strong>Alternative 1 (current choice):</strong> Loading a modified URL into Webview.<br>
+<strong>Pros:</strong> Much lesser codes needed, very easy for new developers to understand.<br>
+<strong>Cons:</strong> Lacks flexibility in utilizing Google&#8217;s map feature.<br>
+<strong>Alternative 2:</strong> Use Google&#8217;s Java client libraries.<br>
+<strong>Pros:</strong> Allows much more flexibility and use directions, places and distance features.<br>
+<strong>Cons:</strong> Currently do not need all these extra features. Integrating external libraries induces unnecessary overhead and is hard for new developers to understand the code.</p>
 </div>
 </div>
 </div>
@@ -2201,7 +2279,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-09 16:57:51 +00:00
+Last updated 2017-11-09 17:35:29 +00:00
 </div>
 </div>
 </body>

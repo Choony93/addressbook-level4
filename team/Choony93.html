@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Ng Choon Heng - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Ng Choon Heng - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-addressbook-level-4"><a class="link" href="#project-addressbook-level-4">Project: AddressBook - Level 4</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.</p>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-F10-B4/main/blob/master/collated/main/Choony93.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-F10-B4/main/blob/master/collated/test/Choony93.md">Test code</a>]</p>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-persistent-color-tags"><a class="link" href="#enhancement-added-persistent-color-tags">Enhancement Added: Persistent Color tags</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="static-code-colored-code-tags-v1-0"><a class="link" href="#static-code-colored-code-tags-v1-0">Static <code>colored</code> tags (v1.0)</a></h3>
+<div class="paragraph">
+<p><strong>Author</strong>: Ng Choon Heng</p>
+</div>
+<div class="paragraph">
+<p>Tags generated will automatically be assigned a unique color.+
+Similar tags will also be assigned the same color as long as tags have the same spelling.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>User tend to remember and identify colors easier than words. Ever-changing colored tags is not user friendly.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="persisting-coloured-tags"><a class="link" href="#persisting-coloured-tags">Persisting coloured tags</a></h3>
+<div class="paragraph">
+<p>Enhanced feature to allow unique coloured tags to persist after the program exits without having to save color data on external files.</p>
+</div>
+<div class="paragraph">
+<p>Full Code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">private</span> <span class="directive">static</span> <span class="predefined-type">String</span> getColorForTag(<span class="predefined-type">String</span> tagValue) {
+
+        <span class="keyword">if</span> (!tagColors.containsKey(tagValue)) {
+            <span class="type">int</span> multiplier = <span class="integer">1</span>;
+            <span class="type">int</span> asciiSum = (tagValue.hashCode() &gt; <span class="integer">1</span>) ? tagValue.hashCode() : tagValue.hashCode() * -<span class="integer">1</span>;
+
+            <span class="type">int</span> colorRed = asciiSum % <span class="integer">256</span>;
+            <span class="type">int</span> colorGreen = (asciiSum / <span class="integer">2</span>) % <span class="integer">256</span>;
+            <span class="type">int</span> colorBlue = (asciiSum / <span class="integer">3</span>) % <span class="integer">256</span>;
+            <span class="keyword">while</span> ((colorRed + colorGreen + colorBlue) &gt; <span class="integer">700</span>) {
+                asciiSum = (asciiSum / multiplier) * ++multiplier;
+                colorRed = asciiSum % <span class="integer">256</span>;
+                colorGreen = (asciiSum / <span class="integer">2</span>) % <span class="integer">256</span>;
+                colorBlue = (asciiSum / <span class="integer">3</span>) % <span class="integer">256</span>;
+            }
+            <span class="predefined-type">String</span> colorString = <span class="predefined-type">String</span>.format(<span class="string"><span class="delimiter">&quot;</span><span class="content">#%02x%02x%02x</span><span class="delimiter">&quot;</span></span>, colorRed, colorGreen, colorBlue);
+            tagColors.put(tagValue, colorString);
+        }
+
+        <span class="keyword">return</span> tagColors.get(tagValue);
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Java&#8217;s <code>hashcode()</code> method from <strong>String</strong> library will be used to obtain a unique 32-bit integer hash value of the tag String. We first obtain the hashcode and ensure it is a positive value.
+Function <strong>getColorForTag(String tagValue)</strong> is supposedly implemented in the PersonCard class, as expected from suggestions on developer guide UI component.
+(Note: Identical strings will result in the same hashcode value)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">int</span> asciiSum = (tagValue.hashCode() &gt; <span class="integer">1</span>) ? tagValue.hashCode() : tagValue.hashCode() * -<span class="integer">1</span>;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We then do a separate division of each color and modulus it by <strong>256</strong> to ensure that it will stay within the RGB limit of 0 - 255.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">int</span> colorRed = asciiSum % <span class="integer">256</span>;
+<span class="type">int</span> colorGreen = (asciiSum / <span class="integer">2</span>) % <span class="integer">256</span>;
+<span class="type">int</span> colorBlue = (asciiSum / <span class="integer">3</span>) % <span class="integer">256</span>;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To ensure that colors stays within visible range, we do a check if sum of RGB is above 700. If it is, it is likely that the color generated is too bright and would not be visible with the white font, hence regenerate the color again.
+We can use an incremental multiplier to regenerate another unique hashcode from the original hashcode. However, to prevent the numbers form getting exponentially large and exceeding the 32-bit sized integer, we shall first divide it by the previous multiplier.
+It is save to assume that chances of collision with other hashcodes is extremely low since we are using extremely large numbers.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">while</span> ((colorRed + colorGreen + colorBlue) &gt; <span class="integer">700</span>) {
+                asciiSum = (asciiSum / multiplier) * ++multiplier;
+                colorRed = asciiSum % <span class="integer">256</span>;
+                colorGreen = (asciiSum / <span class="integer">2</span>) % <span class="integer">256</span>;
+                colorBlue = (asciiSum / <span class="integer">3</span>) % <span class="integer">256</span>;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, we format the RBG values into hexadecimal format with a hex symbol in front to conform with conventional CSS color styling before adding it into the color tag.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Generating of colors for <code>colorTag</code>.<br>
+<strong>Alternative 1 (current choice):</strong> Generate unique color based on tag string.<br>
+<strong>Pros:</strong> Unique tags will always have unique colors.<br>
+<strong>Cons:</strong> Hard for new developers to understand the color code generation.<br>
+<strong>Alternative 2:</strong> Create a static list of limited colors and randomly retrieve colors from there.<br>
+<strong>Pros:</strong> Does not involve complex code generation, easier for new developers to understand.<br>
+<strong>Cons:</strong> Tag colors renew whenever program restarts.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Saving colors retain color persistence after program shuts down.<br>
+<strong>Alternative 1 (current choice):</strong> Morph in-built <code>hashcode()</code> function output to obtain RBG colors.<br>
+<strong>Pros:</strong> Color persistence without the need to save color details onto offline files.<br>
+<strong>Cons:</strong> Chances of certain tags resulting in generating very similar RGB colors.<br>
+<strong>Alternative 2:</strong> Save chosen tag colors onto external file.<br>
+<strong>Pros:</strong> Hard for new developers to understand how colors are retained.<br>
+<strong>Cons:</strong> Must create additional file and include additional unnecessary codes for read/write.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-google-maps"><a class="link" href="#enhancement-added-google-maps">Enhancement Added: Google Maps</a></h3>
+<div class="sect3">
+<h4 id="external-behavior-2"><a class="link" href="#external-behavior-2">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="displaying-google-map-code-gmap-code-v1-2"><a class="link" href="#displaying-google-map-code-gmap-code-v1-2">Displaying google map : <code>gmap</code> (v1.2)</a></h3>
+<div class="paragraph">
+<p><strong>Author</strong>: Ng Choon Heng</p>
+</div>
+<div class="paragraph">
+<p>Displays the google map of the person identified by the index number used in the last person listing.<br>
+Format: <code>gmap INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Loads the peron&#8217;s address into Google map page at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>gmap 2</code><br>
+Display google map of the 2nd person in the address book.</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>gmap 1</code><br>
+Display google map the 1st person in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="option-menu-code-google-map-code-v1-2"><a class="link" href="#option-menu-code-google-map-code-v1-2">Option Menu <code>Google map</code> (v1.2)</a></h3>
+<div class="paragraph">
+<p><strong>Author</strong>: Ng Choon Heng</p>
+</div>
+<div class="paragraph">
+<p>This feature can be found under the new <code>options</code> menu.<br>
+Display the google map data into browser panel based on person&#8217;s address.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gmap-command-accepts-person-name-v1-3"><a class="link" href="#gmap-command-accepts-person-name-v1-3">Gmap command accepts person name (v1.3)</a></h3>
+<div class="paragraph">
+<p><strong>Author</strong>: Ng Choon Heng</p>
+</div>
+<div class="paragraph">
+<p>Gmap command can now accept person name instead of just Index only.</p>
+</div>
+<div class="paragraph">
+<p>Displays the google map of the person identified by the name used in the last person listing.<br>
+Format: <code>gmap NAME</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Loads the peron&#8217;s address into Google map page at the specified <code>NAME</code>.</p>
+</li>
+<li>
+<p>The name reference is case-insensitive</p>
+</li>
+<li>
+<p>The name <strong>must be a whole word</strong> such as <code>Bernice</code> and not <code>Bern</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>gmap Bernice</code><br>
+Display google map of the person with name <strong>Bernice</strong> in the address book.</p>
+</li>
+<li>
+<p><code>find Yu</code><br>
+<code>gmap Yu</code><br>
+Display google map of the person in the results of the <code>find</code> command with <strong>Yu</strong> surname.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-2"><a class="link" href="#justification-2">Justification</a></h4>
+<div class="paragraph">
+<p>Having just textual data of person&#8217;s address is not user friendly nor informative at all.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="google-map-mechanism"><a class="link" href="#google-map-mechanism">Google Map Mechanism</a></h3>
+<div class="paragraph">
+<p>The Google map mechanism resides in a <code>GmapCommand</code> which also inherits from the <code>Command</code> object.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/GmapClassDiagram.png" alt="width:100">
+</div>
+</div>
+<div class="paragraph">
+<p>There are two ways the user can utilize the Google map feature, first by entering the command into CommandBox or selecting the <strong>Google Map</strong> option from the dropdown menu on each <code>PersonCard</code> panel.</p>
+</div>
+<div class="paragraph">
+<p>The sequence diagram can be seen below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/GmapSequenceDiagram.png" alt="GmapSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The first way as you can see from the diagram, the user can input the command of <code>gmap</code> into <code>CommandBox</code> which will then have to go through command parser in the logic component before being raised in the events center. Doing so allows us to validate the requested index from user input before initializing a <code>GmapCommand</code> object.</p>
+</div>
+<div class="paragraph">
+<p><code>GmapCommand</code> object has double constructor that takes in either index-based or a predicate containing names to be searched.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> GmapCommand(Index targetIndex) {
+        <span class="local-variable">this</span>.usingIndex = <span class="predefined-constant">true</span>;
+        <span class="local-variable">this</span>.targetIndex = targetIndex;
+    }
+
+<span class="directive">public</span> GmapCommand(NameConsistsKeywordsPredicate predicate) {
+    <span class="local-variable">this</span>.usingIndex = <span class="predefined-constant">false</span>;
+    <span class="local-variable">this</span>.predicate = predicate;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Command execution residing in <strong>execute()</strong> will then attempt to validate the given index if it exists or returning the first index of a list of persons that matches all the predicate that the user has indicated.</p>
+</div>
+<div class="paragraph">
+<p>Finally, <strong>DisplayGmapEvent</strong> will be raised with this index in its parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">EventsCenter.getInstance().post(<span class="keyword">new</span> DisplayGmapEvent(targetIndex));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The second way is to select the Google Map option under the dropdown list on the GUI. Each <code>PersonCard</code> has its own handler which will automatically raise a DisplayGmapEvent with the <code>PersonCard</code> index as parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">void</span> handleGoogleMap() {
+    raise(<span class="keyword">new</span> DisplayGmapEvent(Index.fromOneBased(<span class="local-variable">this</span>.displayedIndex)));
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Event object will then be handled by the UI Component&#8217;s <code>BrowserPanel</code> and attempt to load the Google Map address with a custom url crafted with the person&#8217;s address using the provided index.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Loading of Google Map data`.<br>
+<strong>Alternative 1 (current choice):</strong> Loading a modified URL into Webview.<br>
+<strong>Pros:</strong> Much lesser codes needed, very easy for new developers to understand.<br>
+<strong>Cons:</strong> Lacks flexibility in utilizing Google&#8217;s map feature.<br>
+<strong>Alternative 2:</strong> Use Google&#8217;s Java client libraries.<br>
+<strong>Pros:</strong> Allows much more flexibility and use directions, places and distance features.<br>
+<strong>Cons:</strong> Currently do not need all these extra features. Integrating external libraries induces unnecessary overhead and is hard for new developers to understand the code.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Set up Project environment for Travis, Appveyor and Coveralls</p>
+</li>
+<li>
+<p>Provided suggestions and advices for external teams (
+<a href="https://github.com/CS2103AUG2017-F11-B1/main/issues/90">#90</a>,
+<a href="https://github.com/CS2103AUG2017-F11-B1/main/issues/89">#89</a>,
+<a href="https://github.com/CS2103AUG2017-F11-B1/main/issues/88">#88</a>).</p>
+</li>
+<li>
+<p>Uploaded code reuse offer for persistent color tags on git forum
+<a href="https://github.com/nus-cs2103-AY1718S1/forum/issues/199">#199</a>.</p>
+</li>
+<li>
+<p>Persistent color tags reused by
+<a href="https://github.com/CS2103AUG2017-F11-B3/main/pull/79">F11-B3</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-09 17:35:29 +00:00
+</div>
+</div>
+</body>
+</html>
