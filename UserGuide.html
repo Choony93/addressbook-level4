@@ -265,8 +265,8 @@ Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This 'find' command is obsoleted .<br>
-Please refer to new <a href="#since-code-v1-1-code">finds</a> command.
+This 'find' command is obsoleted.<br>
+Please refer to new <a href="#locating-persons-by-names-or-phone-numbers-or-emails-or-tags-code-finds-code-v1-1">finds</a> command.
 </td>
 </tr>
 </table>
@@ -573,6 +573,19 @@ Similar tags will also be assigned the same color as long as tags have the same 
 <p>Finds persons who contain any of the given keywords.<br>
 Format: <code>finds n/[MORE_KEYWORDS] or p/[MORE_KEYWORDS] or e/[MORE_KEYWORDS] or t/[MORE_KEYWORDS]</code></p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Only can search using one type of details each time.<br>
+E.g. If <code>finds p/12345678</code> then <code>n/</code> and <code>t/</code> should not be included.
+</td>
+</tr>
+</table>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
@@ -581,19 +594,16 @@ Format: <code>finds n/[MORE_KEYWORDS] or p/[MORE_KEYWORDS] or e/[MORE_KEYWORDS] 
 <p>The search for name is case insensitive. e.g <code>hans</code> will match <code>Hans</code></p>
 </li>
 <li>
-<p>The search for tag is case sensitive. e.g <code>friends</code> will match <code>friends</code> but not <code>Friends</code></p>
+<p>The search for email is case sensitive. e.g <code>email@example.com</code> will not match <code>Email@example.com</code></p>
 </li>
 <li>
-<p>The search for email is case sensitive. e.g <code>email@example.com</code> will not match <code>Email@example.com</code></p>
+<p>The search for tag is case sensitive. e.g <code>friends</code> will match <code>friends</code> but not <code>Friends</code></p>
 </li>
 <li>
 <p>The order of the keywords for name does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
 </li>
 <li>
 <p>The order of the keywords when searching a few tags does not matter. e.g. <code>[friends] [colleagues]</code> will match <code>[colleagues] [friends]</code></p>
-</li>
-<li>
-<p>Only can search using one type of details each time. e.g. <code>finds p/12345678</code> then <code>n/</code> and <code>t/</code> should not be included</p>
 </li>
 <li>
 <p>Only full words will be matched e.g. <code>friend</code> will not match <code>friends</code></p>
@@ -919,7 +929,7 @@ Removes the remark for the first person.</p>
 </div>
 <div class="paragraph">
 <p>User can now add a person with just name and phone details.<br>
-All other details that are not provided will be filled in by default values as shown in <code>Figure 3.5.1.1</code>.</p>
+All other details that are not provided will be filled in by default values as shown in <code>Figure 3.15.1</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -927,7 +937,7 @@ All other details that are not provided will be filled in by default values as s
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 3.5.1.1 : Default values for empty fields</em></p>
+<p><em>Figure 3.15.1 : Default values for empty fields</em></p>
 </div>
 </div>
 <div class="sect2">
@@ -1001,7 +1011,7 @@ Format: <code>add n/NAME p/PHONE_NUMBER b/BIRTHDAY e/EMAIL a/ADDRESS r/[REMARK] 
 <div class="ulist">
 <ul>
 <li>
-<p>Add the remark the person together with AddCommand.</p>
+<p>Adds a remark to a person together with <code>add</code> command.</p>
 </li>
 </ul>
 </div>
@@ -1014,11 +1024,11 @@ Format: <code>add n/NAME p/PHONE_NUMBER b/BIRTHDAY e/EMAIL a/ADDRESS r/[REMARK] 
 <ul>
 <li>
 <p><code>add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01 r/Likes to drink milk.</code><br>
-Adds the remark together with name, phone, email and address for the new person in the list.</p>
+Adds a remark together with name, phone, email and address for the new person in the list.</p>
 </li>
 <li>
-<p>`add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com r/Jogging t/criminal t/friend `<br>
-Adds the remark together with name, phone, email, address and tag for the new person in the list.</p>
+<p><code>add Betsy Crowe pp/1234567 e/betsycrowe@gmail.com r/Jogging t/criminal t/friend.</code><br>
+Adds a remark together with name, phone, email, address and tag for the new person in the list.</p>
 </li>
 </ul>
 </div>
@@ -1123,7 +1133,7 @@ e.g. <code>remark 1 r/CS2103 is fun</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-09 17:47:05 +00:00
+Last updated 2017-11-10 03:44:13 +00:00
 </div>
 </div>
 </body>
