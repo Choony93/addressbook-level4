@@ -49,7 +49,14 @@
 <li><a href="#configuration">3.3. Configuration</a></li>
 <li><a href="#persisting-coloured-tags">3.4. Persisting coloured tags</a></li>
 <li><a href="#find-person-s-using-different-details">3.5. Find person(s) using different details</a></li>
-<li><a href="#google-map-mechanism">3.6. Google Map Mechanism</a></li>
+<li><a href="#important-tag">3.6. Important tag</a></li>
+<li><a href="#sorted-persons">3.7. Sorted persons</a></li>
+<li><a href="#quicker-add-command">3.8. Quicker add command</a></li>
+<li><a href="#add-person-s-birthday">3.9. Add person(s) Birthday</a></li>
+<li><a href="#google-map-mechanism">3.10. Google Map Mechanism</a></li>
+<li><a href="#theme-changer-mechanism">3.11. Theme Changer Mechanism</a></li>
+<li><a href="#import-mechanism">3.12. Import Mechanism</a></li>
+<li><a href="#add-photo-to-person-s">3.13. Add photo to person(s)</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -987,10 +994,159 @@ It is save to assume that chances of collision with other hashcodes is extremely
 <div class="paragraph">
 <p>From the two scenarios, we know that unless the user knows the exact details (i.e. full name, exact phone number, exact email and etc) otherwise <code>finds</code> command with multiple details input is practically not useful as no results will be returned.</p>
 </div>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Finding person with other details.<br>
+<strong>Alternative 1 (current choice):</strong> Able to search with other details but only one type of detail for each search<br>
+<strong>Pros:</strong> Easier to be implemented when only one type of detail is used.<br>
+<strong>Cons:</strong> Repeating functions for different details.<br>
+<strong>Alternative 2:</strong> Able to find with multiple details.<br>
+<strong>Pros:</strong> Lesser repeated functions is possible.<br>
+<strong>Cons:</strong> Harder to implement and increased complexity may affect efficiency.</p>
+</div>
+<hr>
 </div>
 </div>
 <div class="sect2">
-<h3 id="google-map-mechanism"><a class="link" href="#google-map-mechanism">3.6. Google Map Mechanism</a></h3>
+<h3 id="important-tag"><a class="link" href="#important-tag">3.6. Important tag</a></h3>
+<div class="paragraph">
+<p>Any person that has <code>important</code> tag will be filtered and then insert to the top of the list.<br></p>
+</div>
+<div class="paragraph">
+<p>It is implemented to check whether any person in addressbook has <code>important</code> tag each time <code>add</code> or <code>list</code> command is executed</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">void</span> filterImportantTag() <span class="directive">throws</span> PersonNotFoundException, DuplicatePersonException {
+        <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt; notImportantPersons = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt;();
+        <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt; importantPersons = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt;();
+
+        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="integer">0</span>; i &lt; addressBook.getPersonList().size(); i++) {
+            <span class="comment">// ...Check through and filter all persons in addressbook with important tag to importantPersons list...</span>
+        }
+
+        <span class="comment">/**
+         * If any tags in addressbook contains the {@code keyword}
+         * then proceed to insert the contact(s) in {@code importantPersons} to the top of the addressbook
+         */</span>
+
+        <span class="keyword">if</span> (importantPersons.size() != <span class="integer">0</span>) {
+            <span class="comment">// ...Perform logic to insert persons with important tag to the top...</span>
+        }
+    }</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.6.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Perform insertion of persons with important tag to the top quickly.<br>
+<strong>Alternative 1 (current choice):</strong> Filter person with <code>important</code> tag to a list and those without to another list then merge the lists together.<br>
+<strong>Pros:</strong> Easy to implement and works well when there are not a lot of persons.<br>
+<strong>Cons:</strong> Time complexity is O(n2) hence slows down as more persons are being added over time.<br>
+<strong>Alternative 2:</strong> Create additional addressbook that stores only important contacts and execute merge only when a new person is added to the addressbook.<br>
+<strong>Pros:</strong> Able to achieve O(n) time complexity.<br>
+<strong>Cons:</strong> Additional addressbook is redundant and takes up memory space.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sorted-persons"><a class="link" href="#sorted-persons">3.7. Sorted persons</a></h3>
+<div class="paragraph">
+<p>Persons stored in the addressbook will be sorted in ascending alphabetical order based on their name.</p>
+</div>
+<div class="paragraph">
+<p>Persons in the addressbook will be sorted each time the user execute <code>add</code> or <code>list</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Sorting is achieved by using java Collection.sort() method with a specified NameComparator.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">NameComparator</span> <span class="directive">implements</span> <span class="predefined-type">Comparator</span> &lt;ReadOnlyPerson&gt; {
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">int</span> compare(ReadOnlyPerson p1, ReadOnlyPerson p2) {
+        <span class="keyword">return</span> p1.getName().fullName.compareToIgnoreCase(p2.getName().fullName);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The NameComparator compares two names and ignore their case.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.7.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Sort the persons in the list fast.<br>
+<strong>Alternative 1 (current choice):</strong> Use java Collection.sort() which is a merge sort algorithm.<br>
+<strong>Pros:</strong> Works well with few persons in the addressbook and merge sort algorithm is stable.<br>
+<strong>Cons:</strong> Time complexity is nlog(n) hence takes long to sort as more persons are being added over time.<br>
+<strong>Alternative 2:</strong> Implement insertion sort algorithm.<br>
+<strong>Pros:</strong> Able to achieve O(n) time complexity which is the fastest.<br>
+<strong>Cons:</strong> Addressbook has to be almost sorted to achieved O(n) time complexity, otherwise can result in O(n2).</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="quicker-add-command"><a class="link" href="#quicker-add-command">3.8. Quicker add command</a></h3>
+<div class="paragraph">
+<p>Only name and phone number are the required fields.<br></p>
+</div>
+<div class="paragraph">
+<p>Program will handle and create default objects for all other fields that are not fulfilled by user.<br></p>
+</div>
+<div class="paragraph">
+<p>The function below is the code to create default values for empty fields.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"> <span class="directive">public</span> <span class="directive">static</span> Optional &lt;<span class="predefined-type">String</span>&gt; getDetails(Optional &lt;<span class="predefined-type">String</span>&gt; value, Prefix prefix) <span class="directive">throws</span> <span class="exception">ParseException</span> {
+        <span class="keyword">if</span> (!value.isPresent()) {
+            <span class="keyword">if</span> (prefix.equals(PREFIX_BIRTHDAY)) {
+                <span class="keyword">return</span> value.ofNullable(<span class="string"><span class="delimiter">&quot;</span><span class="content">00/00/0000</span><span class="delimiter">&quot;</span></span>);
+            } <span class="keyword">else</span> <span class="keyword">if</span> (prefix.equals(PREFIX_EMAIL)) {
+                <span class="keyword">return</span> value.ofNullable(<span class="string"><span class="delimiter">&quot;</span><span class="content">No email</span><span class="delimiter">&quot;</span></span>);
+            } <span class="keyword">else</span> <span class="keyword">if</span> (prefix.equals(PREFIX_ADDRESS)) {
+                <span class="keyword">return</span> value.ofNullable(<span class="string"><span class="delimiter">&quot;</span><span class="content">No address</span><span class="delimiter">&quot;</span></span>);
+            } <span class="keyword">else</span> <span class="keyword">if</span> (prefix.equals(PREFIX_REMARK)) {
+                <span class="keyword">return</span> value.ofNullable(<span class="string"><span class="delimiter">&quot;</span><span class="content">No remark</span><span class="delimiter">&quot;</span></span>);
+            }
+        }
+
+        <span class="keyword">return</span> value;
+    }</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">3.8.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Allow empty fields for <code>add</code> command.<br>
+<strong>Alternative 1 (current choice):</strong> Create objects for empty fields with default values.<br>
+<strong>Pros:</strong> Allow user to add a person even without full details.<br>
+<strong>Cons:</strong> Nil.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-person-s-birthday"><a class="link" href="#add-person-s-birthday">3.9. Add person(s) Birthday</a></h3>
+<div class="paragraph">
+<p>The <code>birthday</code> command is an improved version from <code>add</code> command. It allows user to add using with as phone number, birthday, email or tag.</p>
+</div>
+<div class="paragraph">
+<p>The user can use this command with 'b/dd/mm/yyyy'</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.9.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p>It is implemented to add birthday detail so that relevant to the user to identify the birthday for up coming event. i.e. if a user want to have an event they can identify who&#8217;s birthday is on this month or next month.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="google-map-mechanism"><a class="link" href="#google-map-mechanism">3.10. Google Map Mechanism</a></h3>
 <div class="paragraph">
 <p>The Google map mechanism resides in a <code>GmapCommand</code> which also inherits from the <code>Command</code> object.</p>
 </div>
@@ -1000,18 +1156,40 @@ It is save to assume that chances of collision with other hashcodes is extremely
 </div>
 </div>
 <div class="paragraph">
-<p>There are two ways the user can utilize the Google map feature, first by entering the command into CommandBox or selecting the <strong>Google Map</strong> option from the dropdown menu on each <code>PersonCard</code> panel.</p>
+<p><em>Figure 3.6.0.1 : GmapCommand object class diagram</em></p>
 </div>
 <div class="paragraph">
-<p>The sequence diagram can be seen below:</p>
+<p>There are two ways the user can utilize the Google map feature, first by entering the command into CommandBox or selecting the <strong>Google Map</strong> option from the dropdown menu on each <code>PersonCard</code> panel.</p>
+</div>
+<div class="sect3">
+<h4 id="method-1"><a class="link" href="#method-1">3.10.1. Method 1</a></h4>
+<div class="paragraph">
+<p>The <code>GmapCommand</code> object sequence diagram can be seen below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/GmapSequenceDiagram.png" alt="GmapSequenceDiagram" width="800">
+<img src="images/GmapSequenceDiagram1.png" alt="GmapSequenceDiagram1" width="750">
 </div>
 </div>
 <div class="paragraph">
-<p>The first way as you can see from the diagram, the user can input the command of <code>gmap</code> into <code>CommandBox</code> which will then have to go through command parser in the logic component before being raised in the events center. Doing so allows us to validate the requested index from user input before initializing a <code>GmapCommand</code> object.</p>
+<p><em>Figure 3.6.1.1 : GmapCommand parser sequence diagram</em></p>
+</div>
+<div class="paragraph">
+<p>As we can see, <code>GmapCommand</code> object is created after input has been validated from the <code>AddressBookParser</code>.
+After initialization, <code>GmapCommand</code> will post a <code>DisplayGmapEvent</code> event while returning a command success or command failed message in <strong>result</strong> and return it to the LogicManager for GUI display.
+The <code>DisplayGmapEvent</code> object contains information regarding the index of person in the addressbook.
+Address data of a person can then be retrieved later using this index.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GmapSequenceDiagram2.png" alt="GmapSequenceDiagram2" width="750">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 3.6.1.2 : GmapCommand execution sequence diagram</em></p>
+</div>
+<div class="paragraph">
+<p>Event handling of <code>DisplayGmapEvent</code> is done on the <code>BrowserPanel</code> that subsequently loads its <strong>loadMapPage()</strong> function.</p>
 </div>
 <div class="paragraph">
 <p><code>GmapCommand</code> object has double constructor that takes in either index-based or a predicate containing names to be searched.</p>
@@ -1040,6 +1218,9 @@ It is save to assume that chances of collision with other hashcodes is extremely
 <pre class="CodeRay highlight"><code data-lang="java">EventsCenter.getInstance().post(<span class="keyword">new</span> DisplayGmapEvent(targetIndex));</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="method-2"><a class="link" href="#method-2">3.10.2. Method 2</a></h4>
 <div class="paragraph">
 <p>The second way is to select the Google Map option under the dropdown list on the GUI. Each <code>PersonCard</code> has its own handler which will automatically raise a DisplayGmapEvent with the <code>PersonCard</code> index as parameter.</p>
 </div>
@@ -1050,19 +1231,291 @@ It is save to assume that chances of collision with other hashcodes is extremely
 }</code></pre>
 </div>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/GmapSequenceDiagram3.png" alt="GmapSequenceDiagram3" width="750">
+</div>
+</div>
 <div class="paragraph">
-<p>Event object will then be handled by the UI Component&#8217;s <code>BrowserPanel</code> and attempt to load the Google Map address with a custom url crafted with the person&#8217;s address using the provided index.</p>
+<p><em>Figure 3.6.2.1 : GmapCommand GUI sequence diagram</em></p>
+</div>
+<div class="paragraph">
+<p>Since the GUI already has index tagged on every PersonCardPanel, there is no need for input validation.
+Hence, the event can be raised directly and be handled in the <code>BrowserPanel</code> similar to <strong>Method 1</strong>.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.6.1. Design Considerations</a></h4>
+<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">3.10.3. Design Considerations</a></h4>
 <div class="paragraph">
-<p><strong>Aspect:</strong> Loading of Google Map data`.<br>
-<strong>Alternative 1 (current choice):</strong> Loading a modified URL into Webview.<br>
+<p><strong>Aspect:</strong> Loading of Google Map data.<br>
+<strong>Alternative 1 (current choice):</strong> Loading a modified URL into <code>WebView</code>.<br>
 <strong>Pros:</strong> Much lesser codes needed, very easy for new developers to understand.<br>
 <strong>Cons:</strong> Lacks flexibility in utilizing Google&#8217;s map feature.<br>
 <strong>Alternative 2:</strong> Use Google&#8217;s Java client libraries.<br>
 <strong>Pros:</strong> Allows much more flexibility and use directions, places and distance features.<br>
 <strong>Cons:</strong> Currently do not need all these extra features. Integrating external libraries induces unnecessary overhead and is hard for new developers to understand the code.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="theme-changer-mechanism"><a class="link" href="#theme-changer-mechanism">3.11. Theme Changer Mechanism</a></h3>
+<div class="paragraph">
+<p>This feature can be used from both the CLI and GUI.
+Similar to the Google Map mechanism, the <code>ThemeCommand</code> object created when using the CLI is also a subclass of <code>Command</code> object.</p>
+</div>
+<div class="paragraph">
+<p><strong>Refer to Figure 3.6.0.1</strong></p>
+</div>
+<div class="sect3">
+<h4 id="method-1-2"><a class="link" href="#method-1-2">3.11.1. Method 1</a></h4>
+<div class="paragraph">
+<p>The creation of <code>ThemeCommand</code> object is also similar to most <code>Command</code> classes.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ThemeSequenceDiagram1.png" alt="ThemeSequenceDiagram1" width="750">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 3.7.1.1 : ThemeCommand parser sequence diagram</em></p>
+</div>
+<div class="paragraph">
+<p><code>ThemeCommand</code> is created after <code>AddressBookParser</code> validation is successful.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ThemeSequenceDiagram2.png" alt="ThemeSequenceDiagram2" width="750">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 3.7.1.2 : ThemeCommand execution sequence diagram</em></p>
+</div>
+<div class="paragraph">
+<p>Validation within the <strong>execute()</strong> function will check for valid theme index or name.
+Once this validation is successful, a <code>ChangeThemeEvent</code> event will be raised to <code>EventsCenter</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
+<span class="directive">public</span> CommandResult execute() <span class="directive">throws</span> CommandException {
+
+    <span class="comment">// Theme name or index validation code</span>
+
+    EventsCenter.getInstance().post(<span class="keyword">new</span> ChangeThemeEvent(targetIndex));
+    <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(<span class="predefined-type">String</span>.format(MESSAGE_THEME_CHANGE_SUCCESS,
+                UiPart.getThemeNameByIndex(<span class="local-variable">this</span>.targetIndex.getZeroBased())));
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Event handling will then be done at <code>MainWindow</code> object class.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">private</span> <span class="type">void</span> handleChangeThemeEvent(ChangeThemeEvent event) {
+    logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    setTheme(THEME_FILE_FOLDER + THEME_LIST_DIR.get(event.targetIndex));
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="method-2-2"><a class="link" href="#method-2-2">3.11.2. Method 2</a></h4>
+<div class="paragraph">
+<p>The second method of utilizing the theme feature is from the GUI. Each buttons from the menu toolbar is tied to its own theme url.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@FXML</span>
+<span class="directive">public</span> <span class="type">void</span> handleThemeModenaYoB() {
+    setTheme(THEME_FILE_FOLDER + THEME_CSS_MODENA_YELLOWONBLACK);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The handling of theme buttons from Menu toolbar directly calls the <strong>setTheme()</strong> function.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="updating-default-page"><a class="link" href="#updating-default-page">3.11.3. Updating default page</a></h4>
+<div class="paragraph">
+<p>The initial default web page displayed in <code>BrowserPanel</code> is a blank <strong>default.html</strong> page that uses a static darktheme CSS file for its styles.
+Changing of styles using Java 8 API by adding external stylesheet only changes the GUI for Java 8&#8217;s components.
+The CSS styles for <strong>default.html</strong> will continue to reflect darktheme styles.</p>
+</div>
+<div class="paragraph">
+<p>Hence, <strong>default.html</strong> file was modified to allow reading of parameters to indicate which themes are currently used, and update its local CSS file accordingly.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript"><span class="tag">&lt;script</span> <span class="attribute-name">language</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javascript</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<span class="comment">
+    &lt;!--</span><span class="inline"> Code to retrieve theme css URI from parameters </span><span class="comment">--&gt;</span>
+
+    <span class="comment">&lt;!-- On page load, extract selected theme from parameter in the URL and edit respective css file --&gt;</span>
+                window.onload = function(e){
+                        var theme  = getParameterByName('theme');
+                        if (theme) {
+                                var oldlink = document.getElementsByTagName(&quot;link&quot;).item(0);
+                                var newlink = document.createElement(&quot;link&quot;);
+
+                                newlink.setAttribute(&quot;rel&quot;, &quot;stylesheet&quot;);
+                                newlink.setAttribute(&quot;type&quot;, &quot;text/css&quot;);
+                                newlink.setAttribute(&quot;href&quot;, theme);
+
+                                document.getElementsByTagName(&quot;head&quot;).item(0).replaceChild(newlink, oldlink);
+                        }
+                }
+<span class="tag">&lt;/script&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With this in place, whenever there&#8217;s a change of themes, the <strong>default.html</strong> page will be reloaded with theme information supplied in its URL parameters.</p>
+</div>
+<div class="paragraph">
+<p><strong>Disclaimer:</strong><br>
+Stylesheets and images of available themes were obtained online with slight modification of the CSS file.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-9"><a class="link" href="#design-considerations-9">3.11.4. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Storing of stylesheets.<br>
+<strong>Alternative 1 (current choice):</strong> Storing multiple CSS files offline and read on demand.<br>
+<strong>Pros:</strong> Easier to modify stylesheets and for new developer to understand.<br>
+<strong>Cons:</strong> Additional offline files to be stored.<br>
+<strong>Alternative 2:</strong> Creating a static set of styles in java itself.<br>
+<strong>Pros:</strong> Does not require additional offline files. <br>
+<strong>Cons:</strong> Harder to edit styles. Codes get more complicated and harder to understand, especially when there&#8217;s alot of CSS rules.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Updating of default web page styles.<br>
+<strong>Alternative 1 (current choice):</strong> Indicating theme data with default web page parameters.<br>
+<strong>Pros:</strong> Can dynamically set web page css file to be accordance to current Java theme.<br>
+<strong>Cons:</strong> Harder for new developers to understand. Requires understanding of Javascript.<br>
+<strong>Alternative 2:</strong> Switching default web page to be transparent.<br>
+<strong>Pros:</strong> Much easier for new developers to understand. <br>
+<strong>Cons:</strong> Default web page will be made obsolete. Unable to utilize it for other improvements and features in the future.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="import-mechanism"><a class="link" href="#import-mechanism">3.12. Import Mechanism</a></h3>
+<div class="paragraph">
+<p>Just like the Google Map and Theme Changing feature, the <strong>Import</strong> feature can also be used from both the CLI and GUI.
+Similarly, <code>ImportCommand</code> object is also a subclass of the <code>Command</code> object.</p>
+</div>
+<div class="paragraph">
+<p><strong>Refer to Figure 3.6.0.1</strong></p>
+</div>
+<div class="sect3">
+<h4 id="method-1-3"><a class="link" href="#method-1-3">3.12.1. Method 1</a></h4>
+<div class="paragraph">
+<p>Import feature can first be utilized using the CLI. The sequence diagram for parsing of import command input is also similar to <strong>Theme Changer Mechanism</strong>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Refer to Figure 3.7.1.1</strong></p>
+</div>
+<div class="paragraph">
+<p>Upon command execution after <code>ImportCommand</code> has been initialized, <code>AddressBookImportEvent</code> will be raised to the <code>EventsCenter</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ImportSequenceDiagram1.png" alt="ImportSequenceDiagram1" width="750">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 3.8.1.1 : Import CLI execution sequence diagram</em></p>
+</div>
+<div class="paragraph">
+<p>Event handling will then be done at the <code>Model</code> component by the <code>ModelManager</code>.
+It will first process all records of person in the new addressbook. If the person name does not exist, it will add that person into the local addressbook.
+If the person name already exist, it will check if both old and new person&#8217;s details are identical. If it is not, it will update the local copy with the new one.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="method-2-3"><a class="link" href="#method-2-3">3.12.2. Method 2</a></h4>
+<div class="paragraph">
+<p>Import command can also be accessed from the Menu toolbar.</p>
+</div>
+<div class="paragraph">
+<p><strong>Refer to UserGuide 3.9</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ImportSequenceDiagram2.png" alt="ImportSequenceDiagram2" width="750">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 3.8.1.1 : Import Feature GUI sequence diagram</em></p>
+</div>
+<div class="paragraph">
+<p>Java 8&#8217;s FileChooser object is used to retrieve File URI from user.
+File path validation will be done within the <code>MainWindow</code> when <strong>handleImport()</strong> is triggered.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">void</span> handleImport() {
+    <span class="keyword">try</span> {
+        <span class="comment">// Attempt to read XML file</span>
+        addressBookOptional = XmlFileStorage.loadDataFromSaveFile(<span class="keyword">new</span> <span class="predefined-type">File</span>(selectedFile.getPath()));
+        raise(<span class="keyword">new</span> AddressBookImportEvent(selectedFile.getPath(), addressBookOptional));
+
+        <span class="comment">// Raise success message back to UI</span>
+        cmdResult = <span class="keyword">new</span> CommandResult(<span class="predefined-type">String</span>.format(MESSAGE_IMPORT_SUCCESS, selectedFile.getPath()));
+        raise(<span class="keyword">new</span> NewResultAvailableEvent(cmdResult.feedbackToUser, <span class="predefined-constant">true</span>));
+
+    } <span class="keyword">catch</span> (DataConversionException e) { <span class="comment">// Catch not well-formed XML files</span>
+        cmdResult = <span class="keyword">new</span> CommandResult(<span class="predefined-type">String</span>.format(MESSAGE_INVALID_XML_FORMAT_ERROR, selectedFile.getPath()));
+        raise(<span class="keyword">new</span> NewResultAvailableEvent(cmdResult.feedbackToUser, <span class="predefined-constant">true</span>));
+
+    } <span class="keyword">catch</span> (<span class="exception">IOException</span> e) { <span class="comment">// Catch missing files</span>
+        cmdResult = <span class="keyword">new</span> CommandResult(<span class="predefined-type">String</span>.format(MESSAGE_INVALID_IMPORT_FILE_ERROR, selectedFile.getPath()));
+        raise(<span class="keyword">new</span> NewResultAvailableEvent(cmdResult.feedbackToUser, <span class="predefined-constant">true</span>));
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To validate the xml file, it will first attempt to read its content.
+Non well-formed documents or file not found will be caught similar to <strong>Method 1</strong>.
+Results will then be created <code>CommandResult</code> and be wrapped with <code>NewResultAvailableEvent</code> objects before being raised.</p>
+</div>
+<div class="paragraph">
+<p><code>NewResultAvailableEvent</code> will then be returned to <code>ResultDiplay</code> class for GUI update of action outcome.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-10"><a class="link" href="#design-considerations-10">3.12.3. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Modes of import.<br>
+<strong>Alternative 1 (current choice):</strong> Append new person and update existing ones.<br>
+<strong>Pros:</strong> Gives flexibility replacing entire addressbook or appending existing addressbook.<br>
+<strong>Cons:</strong> Codes slightly more complex.<br>
+<strong>Alternative 2:</strong> Replace entire addressbook with new one.<br>
+<strong>Pros:</strong> Codes are more simple and easier for new developer to understand. <br>
+<strong>Cons:</strong> Does not give the user option to append or replace existing addressbook.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-photo-to-person-s"><a class="link" href="#add-photo-to-person-s">3.13. Add photo to person(s)</a></h3>
+<div class="paragraph">
+<p>The adding <code>photo</code> is an new version for our app. It allows user to add photos for the person list that been added to Mybook, by clicking the command box and go to add photo
+it will sent a request to open an file from the local location, and import photo to Mybook.</p>
+</div>
+<div class="paragraph">
+<p>The user can use size of 100X100 of file 'png','jpg' or 'jpeg'</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-11"><a class="link" href="#design-considerations-11">3.13.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p>It is implemented to add photo detail so that relevant to the user to identify user. i.e. if both user have same/similar pronunciation of name.</p>
 </div>
 </div>
 </div>
@@ -2279,7 +2732,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-10 15:34:29 +00:00
+Last updated 2017-11-12 12:49:16 +00:00
 </div>
 </div>
 </body>

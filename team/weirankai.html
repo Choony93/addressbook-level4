@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Wei Renkai - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Wei Renkai - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-mybook"><a class="link" href="#project-mybook">Project: Mybook</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mybook is a desktop address book application used for students or teachers who want to record the details of students.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.</p>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-F10-B4/main/blob/master/collated/main/renkai91.md">Functional code</a>]</p>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-add-command-birthday"><a class="link" href="#enhancement-added-add-command-birthday">Enhancement Added: Add command "Birthday"</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-birthday"><a class="link" href="#add-birthday">Add Birthday</a></h3>
+<div class="paragraph">
+<p><strong>Author</strong>: Wei Ren Kai</p>
+</div>
+<div class="paragraph">
+<p>All persons can now add in their birthday on the command line
+Format <code>b/dd/mm/yyyy</code> allow Mybook to keep track all students birthday
+Easy to identify who&#8217;s birthday is coming up on that month.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="justification"><a class="link" href="#justification">Justification</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Adding birthday to person list of Mybook in the command box when they are filling up information. This allows the user to identify who&#8217;s birthday is coming up, so that they can celebrate their birthday.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementation"><a class="link" href="#implementation">Implementation</a></h2>
+<div class="sectionbody">
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+<div class="sect2">
+<h3 id="add-person-s-birthday"><a class="link" href="#add-person-s-birthday">Add person(s) Birthday</a></h3>
+<div class="paragraph">
+<p>The <code>birthday</code> command is an improved version from <code>add</code> command. It allows user to add using with as phone number, birthday, email or tag.</p>
+</div>
+<div class="paragraph">
+<p>The user can use this command with 'b/dd/mm/yyyy'</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="paragraph">
+<p>It is implemented to add birthday detail so that relevant to the user to identify the birthday for up coming event. i.e. if a user want to have an event they can identify who&#8217;s birthday is on this month or next month.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-proposed-add-profile-photos"><a class="link" href="#enhancement-proposed-add-profile-photos">Enhancement Proposed: Add "profile photos"</a></h3>
+<div class="paragraph">
+<p>Adding profile photos for each students, so that we can identify the students by photo and not getting the wrong student.
+It help the user to identify the correct person.</p>
+</div>
+<div class="sect3">
+<h4 id="external-behavior-2"><a class="link" href="#external-behavior-2">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="option-menu-code-add-photo-code-v1-4"><a class="link" href="#option-menu-code-add-photo-code-v1-4">Option Menu <code>Add photo</code> (v1.4)</a></h3>
+<div class="paragraph">
+<p><strong>Author</strong>: Wei Ren Kai</p>
+</div>
+<div class="paragraph">
+<p>This feature is to add photo to individual.<br>
+Display the photo data into browser panel with a photo size of 100X100.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h2>
+<div class="sectionbody">
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+<div class="sect2">
+<h3 id="add-photo-to-person-s"><a class="link" href="#add-photo-to-person-s">Add photo to person(s)</a></h3>
+<div class="paragraph">
+<p>The adding <code>photo</code> is an new version for our app. It allows user to add photos for the person list that been added to Mybook, by clicking the command box and go to add photo
+it will sent a request to open an file from the local location, and import photo to Mybook.</p>
+</div>
+<div class="paragraph">
+<p>The user can use size of 100X100 of file 'png','jpg' or 'jpeg'</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="paragraph">
+<p>It is implemented to add photo detail so that relevant to the user to identify user. i.e. if both user have same/similar pronunciation of name.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Change our address book display bar to our app name</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">Project: PowerPointLabs</a></h3>
+<div class="paragraph">
+<p>{Optionally (not graded), you may include other projects in your portfolio.}</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-12 12:49:16 +00:00
+</div>
+</div>
+</body>
+</html>

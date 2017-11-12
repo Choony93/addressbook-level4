@@ -222,6 +222,16 @@ Returns any person having tags <code>[friends]</code> or <code>[colleagues]</cod
 <p>From the two scenarios, we know that unless the user knows the exact details (i.e. full name, exact phone number, exact email and etc) otherwise <code>finds</code> command with multiple details input is practically not useful as no results will be returned.</p>
 </div>
 <div class="paragraph">
+<p><strong>Aspect:</strong> Finding person with other details.<br>
+<strong>Alternative 1 (current choice):</strong> Able to search with other details but only one type of detail for each search<br>
+<strong>Pros:</strong> Easier to be implemented when only one type of detail is used.<br>
+<strong>Cons:</strong> Repeating functions for different details.<br>
+<strong>Alternative 2:</strong> Able to find with multiple details.<br>
+<strong>Pros:</strong> Lesser repeated functions is possible.<br>
+<strong>Cons:</strong> Harder to implement and increased complexity may affect efficiency.</p>
+</div>
+<hr>
+<div class="paragraph">
 <p><mark>End of Extract</mark></p>
 </div>
 <hr>
@@ -256,19 +266,263 @@ User using versions before v1.2 should add a new person with <code>important</co
 <p>Allows user to access contacts that are important conveniently.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="important-tag"><a class="link" href="#important-tag">Important tag</a></h3>
+<div class="paragraph">
+<p>Any person that has <code>important</code> tag will be filtered and then insert to the top of the list.<br></p>
+</div>
+<div class="paragraph">
+<p>It is implemented to check whether any person in addressbook has <code>important</code> tag each time <code>add</code> or <code>list</code> command is executed</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">void</span> filterImportantTag() <span class="directive">throws</span> PersonNotFoundException, DuplicatePersonException {
+        <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt; notImportantPersons = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt;();
+        <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt; importantPersons = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt;();
+
+        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="integer">0</span>; i &lt; addressBook.getPersonList().size(); i++) {
+            <span class="comment">// ...Check through and filter all persons in addressbook with important tag to importantPersons list...</span>
+        }
+
+        <span class="comment">/**
+         * If any tags in addressbook contains the {@code keyword}
+         * then proceed to insert the contact(s) in {@code importantPersons} to the top of the addressbook
+         */</span>
+
+        <span class="keyword">if</span> (importantPersons.size() != <span class="integer">0</span>) {
+            <span class="comment">// ...Perform logic to insert persons with important tag to the top...</span>
+        }
+    }</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Perform insertion of persons with important tag to the top quickly.<br>
+<strong>Alternative 1 (current choice):</strong> Filter person with <code>important</code> tag to a list and those without to another list then merge the lists together.<br>
+<strong>Pros:</strong> Easy to implement and works well when there are not a lot of persons.<br>
+<strong>Cons:</strong> Time complexity is O(n2) hence slows down as more persons are being added over time.<br>
+<strong>Alternative 2:</strong> Create additional addressbook that stores only important contacts and execute merge only when a new person is added to the addressbook.<br>
+<strong>Pros:</strong> Able to achieve O(n) time complexity.<br>
+<strong>Cons:</strong> Additional addressbook is redundant and takes up memory space.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-sorted-contacts-in-alphabetical-order"><a class="link" href="#enhancement-added-sorted-contacts-in-alphabetical-order">Enhancement Added: Sorted contacts in alphabetical order</a></h3>
+<div class="sect3">
+<h4 id="logic-2"><a class="link" href="#logic-2">Logic</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sorted-contacts-v1-3"><a class="link" href="#sorted-contacts-v1-3">Sorted Contacts (v1.3)</a></h3>
+<div class="paragraph">
+<p><strong>Author</strong>: Soh Hong Hwee</p>
+</div>
+<div class="paragraph">
+<p>All persons displayed will be sorted in ascending alphabetical order based on their name.<br>
+Using <code>List</code> command will always display all persons in sorted ascedning alphabetical order.<br>
+Persons with <code>Important</code> or <code>important</code> tag will be at the top in ascending alphabetical order then follow by other persons.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-3"><a class="link" href="#justification-3">Justification</a></h4>
+<div class="paragraph">
+<p>Allows user to scroll through the list to look for persons easily.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="implementation-3"><a class="link" href="#implementation-3">Implementation</a></h3>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sorted-persons"><a class="link" href="#sorted-persons">Sorted persons</a></h3>
+<div class="paragraph">
+<p>Persons stored in the addressbook will be sorted in ascending alphabetical order based on their name.</p>
+</div>
+<div class="paragraph">
+<p>Persons in the addressbook will be sorted each time the user execute <code>add</code> or <code>list</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Sorting is achieved by using java Collection.sort() method with a specified NameComparator.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">NameComparator</span> <span class="directive">implements</span> <span class="predefined-type">Comparator</span> &lt;ReadOnlyPerson&gt; {
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">int</span> compare(ReadOnlyPerson p1, ReadOnlyPerson p2) {
+        <span class="keyword">return</span> p1.getName().fullName.compareToIgnoreCase(p2.getName().fullName);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The NameComparator compares two names and ignore their case.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Sort the persons in the list fast.<br>
+<strong>Alternative 1 (current choice):</strong> Use java Collection.sort() which is a merge sort algorithm.<br>
+<strong>Pros:</strong> Works well with few persons in the addressbook and merge sort algorithm is stable.<br>
+<strong>Cons:</strong> Time complexity is nlog(n) hence takes long to sort as more persons are being added over time.<br>
+<strong>Alternative 2:</strong> Implement insertion sort algorithm.<br>
+<strong>Pros:</strong> Able to achieve O(n) time complexity which is the fastest.<br>
+<strong>Cons:</strong> Addressbook has to be almost sorted to achieved O(n) time complexity, otherwise can result in O(n2).</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-quick-adding-of-a-person"><a class="link" href="#enhancement-added-quick-adding-of-a-person">Enhancement Added: Quick adding of a person</a></h3>
+<div class="sect3">
+<h4 id="logic-3"><a class="link" href="#logic-3">Logic</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-person-code-add-code"><a class="link" href="#adding-a-person-code-add-code">Adding a person: <code>add</code></a></h3>
+<div class="paragraph">
+<p>Adds a person to the address book<br>
+Only <code>NAME</code> and <code>PHONE NUMBER</code> are compulsory fields<br>
+Format: <code>add n/NAME p/PHONE_NUMBER b/BIRTHDAY e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+A person can have any number of tags (including 0)
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add n/John Doe p/98765432 b/21/07/1991 e/johnd@example.com a/John street, block 123, #01-01</code></p>
+</li>
+<li>
+<p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison b/21/07/1991 p/1234567 t/criminal</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification-4"><a class="link" href="#justification-4">Justification</a></h4>
+<div class="paragraph">
+<p>To facilitate quicker adding and making it possible to add when user do have all of a person&#8217;s details.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="implementation-4"><a class="link" href="#implementation-4">Implementation</a></h3>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="quicker-add-command"><a class="link" href="#quicker-add-command">Quicker add command</a></h3>
+<div class="paragraph">
+<p>Only name and phone number are the required fields.<br></p>
+</div>
+<div class="paragraph">
+<p>Program will handle and create default objects for all other fields that are not fulfilled by user.<br></p>
+</div>
+<div class="paragraph">
+<p>The function below is the code to create default values for empty fields.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"> <span class="directive">public</span> <span class="directive">static</span> Optional &lt;<span class="predefined-type">String</span>&gt; getDetails(Optional &lt;<span class="predefined-type">String</span>&gt; value, Prefix prefix) <span class="directive">throws</span> <span class="exception">ParseException</span> {
+        <span class="keyword">if</span> (!value.isPresent()) {
+            <span class="keyword">if</span> (prefix.equals(PREFIX_BIRTHDAY)) {
+                <span class="keyword">return</span> value.ofNullable(<span class="string"><span class="delimiter">&quot;</span><span class="content">00/00/0000</span><span class="delimiter">&quot;</span></span>);
+            } <span class="keyword">else</span> <span class="keyword">if</span> (prefix.equals(PREFIX_EMAIL)) {
+                <span class="keyword">return</span> value.ofNullable(<span class="string"><span class="delimiter">&quot;</span><span class="content">No email</span><span class="delimiter">&quot;</span></span>);
+            } <span class="keyword">else</span> <span class="keyword">if</span> (prefix.equals(PREFIX_ADDRESS)) {
+                <span class="keyword">return</span> value.ofNullable(<span class="string"><span class="delimiter">&quot;</span><span class="content">No address</span><span class="delimiter">&quot;</span></span>);
+            } <span class="keyword">else</span> <span class="keyword">if</span> (prefix.equals(PREFIX_REMARK)) {
+                <span class="keyword">return</span> value.ofNullable(<span class="string"><span class="delimiter">&quot;</span><span class="content">No remark</span><span class="delimiter">&quot;</span></span>);
+            }
+        }
+
+        <span class="keyword">return</span> value;
+    }</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Allow empty fields for <code>add</code> command.<br>
+<strong>Alternative 1 (current choice):</strong> Create objects for empty fields with default values.<br>
+<strong>Pros:</strong> Allow user to add a person even without full details.<br>
+<strong>Cons:</strong> Nil.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
 </div>
 <div class="sect2">
 <h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
 <div class="ulist">
 <ul>
 <li>
-<p>Provide assistance to team members when needed.</p>
+<p>Provide assistance to team members.</p>
 </li>
 <li>
 <p>Assign repository labels and milestones.</p>
 </li>
 <li>
 <p>Issuing the project version release.</p>
+</li>
+<li>
+<p>Maintaining project documentations relevancy.</p>
 </li>
 </ul>
 </div>
@@ -278,7 +532,7 @@ User using versions before v1.2 should add a new person with <code>important</co
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-10 15:34:29 +00:00
+Last updated 2017-11-12 12:49:16 +00:00
 </div>
 </div>
 </body>
