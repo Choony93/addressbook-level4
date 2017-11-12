@@ -153,6 +153,7 @@ It is save to assume that chances of collision with other hashcodes is extremely
 <strong>Pros:</strong> Hard for new developers to understand how colors are retained.<br>
 <strong>Cons:</strong> Must create additional file and include additional unnecessary codes for read/write.</p>
 </div>
+<hr>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
 </div>
@@ -288,7 +289,7 @@ Display google map of the person in the results of the <code>find</code> command
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 3.6.0.1 : GmapCommand object class diagram</em></p>
+<p><em>Figure 3.9.0.1 : GmapCommand object class diagram</em></p>
 </div>
 <div class="paragraph">
 <p>There are two ways the user can utilize the Google map feature, first by entering the command into CommandBox or selecting the <strong>Google Map</strong> option from the dropdown menu on each <code>PersonCard</code> panel.</p>
@@ -304,7 +305,7 @@ Display google map of the person in the results of the <code>find</code> command
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 3.6.1.1 : GmapCommand parser sequence diagram</em></p>
+<p><em>Figure 3.9.1.1 : GmapCommand parser sequence diagram</em></p>
 </div>
 <div class="paragraph">
 <p>As we can see, <code>GmapCommand</code> object is created after input has been validated from the <code>AddressBookParser</code>.
@@ -318,7 +319,7 @@ Address data of a person can then be retrieved later using this index.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 3.6.1.2 : GmapCommand execution sequence diagram</em></p>
+<p><em>Figure 3.9.1.2 : GmapCommand execution sequence diagram</em></p>
 </div>
 <div class="paragraph">
 <p>Event handling of <code>DisplayGmapEvent</code> is done on the <code>BrowserPanel</code> that subsequently loads its <strong>loadMapPage()</strong> function.</p>
@@ -369,7 +370,7 @@ Address data of a person can then be retrieved later using this index.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 3.6.2.1 : GmapCommand GUI sequence diagram</em></p>
+<p><em>Figure 3.9.2.1 : GmapCommand GUI sequence diagram</em></p>
 </div>
 <div class="paragraph">
 <p>Since the GUI already has index tagged on every PersonCardPanel, there is no need for input validation.
@@ -387,6 +388,7 @@ Hence, the event can be raised directly and be handled in the <code>BrowserPanel
 <strong>Pros:</strong> Allows much more flexibility and use directions, places and distance features.<br>
 <strong>Cons:</strong> Currently do not need all these extra features. Integrating external libraries induces unnecessary overhead and is hard for new developers to understand the code.</p>
 </div>
+<hr>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
 </div>
@@ -504,7 +506,7 @@ Changes the addressbook theme to theme <code>INDEX</code> of one, which is defau
 Similar to the Google Map mechanism, the <code>ThemeCommand</code> object created when using the CLI is also a subclass of <code>Command</code> object.</p>
 </div>
 <div class="paragraph">
-<p><strong>Refer to Figure 3.6.0.1</strong></p>
+<p><strong>Refer to Figure 3.10.0.1</strong></p>
 </div>
 <div class="sect3">
 <h4 id="method-1-2"><a class="link" href="#method-1-2">Method 1</a></h4>
@@ -517,7 +519,7 @@ Similar to the Google Map mechanism, the <code>ThemeCommand</code> object create
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 3.7.1.1 : ThemeCommand parser sequence diagram</em></p>
+<p><em>Figure 3.10.1.1 : ThemeCommand parser sequence diagram</em></p>
 </div>
 <div class="paragraph">
 <p><code>ThemeCommand</code> is created after <code>AddressBookParser</code> validation is successful.</p>
@@ -528,7 +530,7 @@ Similar to the Google Map mechanism, the <code>ThemeCommand</code> object create
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 3.7.1.2 : ThemeCommand execution sequence diagram</em></p>
+<p><em>Figure 3.10.1.2 : ThemeCommand execution sequence diagram</em></p>
 </div>
 <div class="paragraph">
 <p>Validation within the <strong>execute()</strong> function will check for valid theme index or name.
@@ -616,9 +618,18 @@ The CSS styles for <strong>default.html</strong> will continue to reflect darkth
 <div class="paragraph">
 <p>With this in place, whenever there&#8217;s a change of themes, the <strong>default.html</strong> page will be reloaded with theme information supplied in its URL parameters.</p>
 </div>
-<div class="paragraph">
-<p><strong>Disclaimer:</strong><br>
-Stylesheets and images of available themes were obtained online with slight modification of the CSS file.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>Disclaimer:</strong><br>
+Stylesheets and images of available themes were obtained online with slight modification of the CSS file.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -642,6 +653,7 @@ Stylesheets and images of available themes were obtained online with slight modi
 <strong>Pros:</strong> Much easier for new developers to understand. <br>
 <strong>Cons:</strong> Default web page will be made obsolete. Unable to utilize it for other improvements and features in the future.</p>
 </div>
+<hr>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
 </div>
@@ -742,16 +754,34 @@ folder <strong>data</strong> into local addressbook.</p>
 <p>Just like the Google Map and Theme Changing feature, the <strong>Import</strong> feature can also be used from both the CLI and GUI.
 Similarly, <code>ImportCommand</code> object is also a subclass of the <code>Command</code> object.</p>
 </div>
-<div class="paragraph">
-<p><strong>Refer to Figure 3.6.0.1</strong></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Refer to Figure 3.9.0.1 for Class Diagram of ThemeCommand.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
 <h4 id="method-1-3"><a class="link" href="#method-1-3">Method 1</a></h4>
 <div class="paragraph">
 <p>Import feature can first be utilized using the CLI. The sequence diagram for parsing of import command input is also similar to <strong>Theme Changer Mechanism</strong>.</p>
 </div>
-<div class="paragraph">
-<p><strong>Refer to Figure 3.7.1.1</strong></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Refer to Figure 3.10.1.1 for Sequence Diagram of Command Parsing.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Upon command execution after <code>ImportCommand</code> has been initialized, <code>AddressBookImportEvent</code> will be raised to the <code>EventsCenter</code>.</p>
@@ -762,7 +792,7 @@ Similarly, <code>ImportCommand</code> object is also a subclass of the <code>Com
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 3.8.1.1 : Import CLI execution sequence diagram</em></p>
+<p><em>Figure 3.11.1.1 : Import CLI execution sequence diagram</em></p>
 </div>
 <div class="paragraph">
 <p>Event handling will then be done at the <code>Model</code> component by the <code>ModelManager</code>.
@@ -775,8 +805,17 @@ If the person name already exist, it will check if both old and new person&#8217
 <div class="paragraph">
 <p>Import command can also be accessed from the Menu toolbar.</p>
 </div>
-<div class="paragraph">
-<p><strong>Refer to UserGuide 3.9</strong></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Refer to UserGuide 3.9 for screenshot of using Import from Menu toolbar.
+</td>
+</tr>
+</table>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -784,7 +823,7 @@ If the person name already exist, it will check if both old and new person&#8217
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 3.8.1.1 : Import Feature GUI sequence diagram</em></p>
+<p><em>Figure 3.11.1.1 : Import Feature GUI sequence diagram</em></p>
 </div>
 <div class="paragraph">
 <p>Java 8&#8217;s FileChooser object is used to retrieve File URI from user.
@@ -833,6 +872,7 @@ Results will then be created <code>CommandResult</code> and be wrapped with <cod
 <strong>Pros:</strong> Codes are more simple and easier for new developer to understand. <br>
 <strong>Cons:</strong> Does not give the user option to append or replace existing addressbook.</p>
 </div>
+<hr>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
 </div>
@@ -874,7 +914,7 @@ Results will then be created <code>CommandResult</code> and be wrapped with <cod
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-12 13:58:39 +00:00
+Last updated 2017-11-12 14:14:19 +00:00
 </div>
 </div>
 </body>
